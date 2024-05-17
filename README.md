@@ -24,7 +24,7 @@ go get golang.org/x/net/context
 Put the package under your project folder and add the following in import:
 
 ```go
-import openapi "github.com/GIT_USER_ID/GIT_REPO_ID"
+import openapi "github.com/bringauto/fleet-management-http-client-go"
 ```
 
 To use a proxy, set the environment variable `HTTP_PROXY`:
