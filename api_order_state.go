@@ -3,7 +3,7 @@ BringAuto Fleet Management v2 API
 
 Specification for BringAuto fleet backend HTTP API
 
-API version: 2.3.1
+API version: 3.1.0
 Contact: fleet@bringauto.com
 */
 
@@ -24,30 +24,30 @@ import (
 // OrderStateAPIService OrderStateAPI service
 type OrderStateAPIService service
 
-type ApiCreateOrderStateRequest struct {
+type ApiCreateOrderStatesRequest struct {
 	ctx context.Context
 	ApiService *OrderStateAPIService
-	orderState *OrderState
+	orderState *[]OrderState
 }
 
-// Order State model in JSON format.
-func (r ApiCreateOrderStateRequest) OrderState(orderState OrderState) ApiCreateOrderStateRequest {
+// A list of Order State models in JSON format.
+func (r ApiCreateOrderStatesRequest) OrderState(orderState []OrderState) ApiCreateOrderStatesRequest {
 	r.orderState = &orderState
 	return r
 }
 
-func (r ApiCreateOrderStateRequest) Execute() (*OrderState, *http.Response, error) {
-	return r.ApiService.CreateOrderStateExecute(r)
+func (r ApiCreateOrderStatesRequest) Execute() (*OrderState, *http.Response, error) {
+	return r.ApiService.CreateOrderStatesExecute(r)
 }
 
 /*
-CreateOrderState Add a new Order State.
+CreateOrderStates Add new Order States.
 
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @return ApiCreateOrderStateRequest
+ @return ApiCreateOrderStatesRequest
 */
-func (a *OrderStateAPIService) CreateOrderState(ctx context.Context) ApiCreateOrderStateRequest {
-	return ApiCreateOrderStateRequest{
+func (a *OrderStateAPIService) CreateOrderStates(ctx context.Context) ApiCreateOrderStatesRequest {
+	return ApiCreateOrderStatesRequest{
 		ApiService: a,
 		ctx: ctx,
 	}
@@ -55,7 +55,7 @@ func (a *OrderStateAPIService) CreateOrderState(ctx context.Context) ApiCreateOr
 
 // Execute executes the request
 //  @return OrderState
-func (a *OrderStateAPIService) CreateOrderStateExecute(r ApiCreateOrderStateRequest) (*OrderState, *http.Response, error) {
+func (a *OrderStateAPIService) CreateOrderStatesExecute(r ApiCreateOrderStatesRequest) (*OrderState, *http.Response, error) {
 	var (
 		localVarHTTPMethod   = http.MethodPost
 		localVarPostBody     interface{}
@@ -63,7 +63,7 @@ func (a *OrderStateAPIService) CreateOrderStateExecute(r ApiCreateOrderStateRequ
 		localVarReturnValue  *OrderState
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "OrderStateAPIService.CreateOrderState")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "OrderStateAPIService.CreateOrderStates")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
@@ -205,6 +205,7 @@ type ApiGetAllOrderStatesRequest struct {
 	wait *bool
 	since *int64
 	lastN *int32
+	carId *int32
 }
 
 // Applies to GET methods when no objects would be returned at the moment of request. If wait&#x3D;true, \\ the request will wait for the next object to be created and then returns it. If wait&#x3D;False or unspecified, the request will return \\ an empty list.
@@ -222,6 +223,12 @@ func (r ApiGetAllOrderStatesRequest) Since(since int64) ApiGetAllOrderStatesRequ
 // If specified, only the last N objects will be returned. If unspecified, all objects are returned. \\ If some states have identical timestamps and they all do not fit into the maximum N states, only those with higher IDs are returned. If value smaller than 1 is provided, this filtering is ignored.
 func (r ApiGetAllOrderStatesRequest) LastN(lastN int32) ApiGetAllOrderStatesRequest {
 	r.lastN = &lastN
+	return r
+}
+
+// An optional parameter for filtering only objects related to a car with the specified ID.
+func (r ApiGetAllOrderStatesRequest) CarId(carId int32) ApiGetAllOrderStatesRequest {
+	r.carId = &carId
 	return r
 }
 
@@ -277,6 +284,9 @@ func (a *OrderStateAPIService) GetAllOrderStatesExecute(r ApiGetAllOrderStatesRe
 	} else {
 		var defaultValue int32 = 0
 		r.lastN = &defaultValue
+	}
+	if r.carId != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "carId", r.carId, "")
 	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}

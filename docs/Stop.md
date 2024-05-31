@@ -8,6 +8,7 @@ Name | Type | Description | Notes
 **Name** | **string** |  | 
 **Position** | [**GNSSPosition**](GNSSPosition.md) |  | 
 **NotificationPhone** | Pointer to [**MobilePhone**](MobilePhone.md) |  | [optional] 
+**IsAutoStop** | Pointer to **bool** | If set to true, an Order to this Stop is always automatically created when creating Orders for the Route containing this Stop. | [optional] [default to false]
 
 ## Methods
 
@@ -117,6 +118,31 @@ SetNotificationPhone sets NotificationPhone field to given value.
 `func (o *Stop) HasNotificationPhone() bool`
 
 HasNotificationPhone returns a boolean if a field has been set.
+
+### GetIsAutoStop
+
+`func (o *Stop) GetIsAutoStop() bool`
+
+GetIsAutoStop returns the IsAutoStop field if non-nil, zero value otherwise.
+
+### GetIsAutoStopOk
+
+`func (o *Stop) GetIsAutoStopOk() (*bool, bool)`
+
+GetIsAutoStopOk returns a tuple with the IsAutoStop field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetIsAutoStop
+
+`func (o *Stop) SetIsAutoStop(v bool)`
+
+SetIsAutoStop sets IsAutoStop field to given value.
+
+### HasIsAutoStop
+
+`func (o *Stop) HasIsAutoStop() bool`
+
+HasIsAutoStop returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

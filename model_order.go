@@ -3,7 +3,7 @@ BringAuto Fleet Management v2 API
 
 Specification for BringAuto fleet backend HTTP API
 
-API version: 2.3.1
+API version: 3.1.0
 Contact: fleet@bringauto.com
 */
 
@@ -25,7 +25,6 @@ type Order struct {
 	Id *int32 `json:"id,omitempty"`
 	// Priority (low, normal, high)
 	Priority *string `json:"priority,omitempty"`
-	UserId int32 `json:"userId"`
 	// A Unix timestamp in milliseconds. The timestamp is used to determine the time of creation of an object.
 	Timestamp *int64 `json:"timestamp,omitempty"`
 	CarId int32 `json:"carId"`
@@ -34,6 +33,7 @@ type Order struct {
 	StopRouteId int32 `json:"stopRouteId"`
 	NotificationPhone *MobilePhone `json:"notificationPhone,omitempty"`
 	LastState *OrderState `json:"lastState,omitempty"`
+	IsVisible *bool `json:"isVisible,omitempty"`
 }
 
 type _Order Order
@@ -42,14 +42,15 @@ type _Order Order
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewOrder(userId int32, carId int32, targetStopId int32, stopRouteId int32) *Order {
+func NewOrder(carId int32, targetStopId int32, stopRouteId int32) *Order {
 	this := Order{}
 	var priority string = "normal"
 	this.Priority = &priority
-	this.UserId = userId
 	this.CarId = carId
 	this.TargetStopId = targetStopId
 	this.StopRouteId = stopRouteId
+	var isVisible bool = true
+	this.IsVisible = &isVisible
 	return &this
 }
 
@@ -60,6 +61,8 @@ func NewOrderWithDefaults() *Order {
 	this := Order{}
 	var priority string = "normal"
 	this.Priority = &priority
+	var isVisible bool = true
+	this.IsVisible = &isVisible
 	return &this
 }
 
@@ -125,30 +128,6 @@ func (o *Order) HasPriority() bool {
 // SetPriority gets a reference to the given string and assigns it to the Priority field.
 func (o *Order) SetPriority(v string) {
 	o.Priority = &v
-}
-
-// GetUserId returns the UserId field value
-func (o *Order) GetUserId() int32 {
-	if o == nil {
-		var ret int32
-		return ret
-	}
-
-	return o.UserId
-}
-
-// GetUserIdOk returns a tuple with the UserId field value
-// and a boolean to check if the value has been set.
-func (o *Order) GetUserIdOk() (*int32, bool) {
-	if o == nil {
-		return nil, false
-	}
-	return &o.UserId, true
-}
-
-// SetUserId sets field value
-func (o *Order) SetUserId(v int32) {
-	o.UserId = v
 }
 
 // GetTimestamp returns the Timestamp field value if set, zero value otherwise.
@@ -351,6 +330,38 @@ func (o *Order) SetLastState(v OrderState) {
 	o.LastState = &v
 }
 
+// GetIsVisible returns the IsVisible field value if set, zero value otherwise.
+func (o *Order) GetIsVisible() bool {
+	if o == nil || IsNil(o.IsVisible) {
+		var ret bool
+		return ret
+	}
+	return *o.IsVisible
+}
+
+// GetIsVisibleOk returns a tuple with the IsVisible field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *Order) GetIsVisibleOk() (*bool, bool) {
+	if o == nil || IsNil(o.IsVisible) {
+		return nil, false
+	}
+	return o.IsVisible, true
+}
+
+// HasIsVisible returns a boolean if a field has been set.
+func (o *Order) HasIsVisible() bool {
+	if o != nil && !IsNil(o.IsVisible) {
+		return true
+	}
+
+	return false
+}
+
+// SetIsVisible gets a reference to the given bool and assigns it to the IsVisible field.
+func (o *Order) SetIsVisible(v bool) {
+	o.IsVisible = &v
+}
+
 func (o Order) MarshalJSON() ([]byte, error) {
 	toSerialize,err := o.ToMap()
 	if err != nil {
@@ -367,7 +378,6 @@ func (o Order) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Priority) {
 		toSerialize["priority"] = o.Priority
 	}
-	toSerialize["userId"] = o.UserId
 	if !IsNil(o.Timestamp) {
 		toSerialize["timestamp"] = o.Timestamp
 	}
@@ -383,6 +393,9 @@ func (o Order) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.LastState) {
 		toSerialize["lastState"] = o.LastState
 	}
+	if !IsNil(o.IsVisible) {
+		toSerialize["isVisible"] = o.IsVisible
+	}
 	return toSerialize, nil
 }
 
@@ -391,7 +404,6 @@ func (o *Order) UnmarshalJSON(data []byte) (err error) {
 	// by unmarshalling the object into a generic map with string keys and checking
 	// that every required field exists as a key in the generic map.
 	requiredProperties := []string{
-		"userId",
 		"carId",
 		"targetStopId",
 		"stopRouteId",

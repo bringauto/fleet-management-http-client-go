@@ -3,7 +3,7 @@ BringAuto Fleet Management v2 API
 
 Specification for BringAuto fleet backend HTTP API
 
-API version: 2.3.1
+API version: 3.1.0
 Contact: fleet@bringauto.com
 */
 
@@ -24,44 +24,44 @@ import (
 // CarStateAPIService CarStateAPI service
 type CarStateAPIService service
 
-type ApiAddCarStateRequest struct {
+type ApiCreateCarStatesRequest struct {
 	ctx context.Context
 	ApiService *CarStateAPIService
-	carState *CarState
+	carState *[]CarState
 }
 
-// Car State model in JSON format.
-func (r ApiAddCarStateRequest) CarState(carState CarState) ApiAddCarStateRequest {
+// A list of Car State model in JSON format.
+func (r ApiCreateCarStatesRequest) CarState(carState []CarState) ApiCreateCarStatesRequest {
 	r.carState = &carState
 	return r
 }
 
-func (r ApiAddCarStateRequest) Execute() (*http.Response, error) {
-	return r.ApiService.AddCarStateExecute(r)
+func (r ApiCreateCarStatesRequest) Execute() (*http.Response, error) {
+	return r.ApiService.CreateCarStatesExecute(r)
 }
 
 /*
-AddCarState Add a new Car State.
+CreateCarStates Add new Car States.
 
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @return ApiAddCarStateRequest
+ @return ApiCreateCarStatesRequest
 */
-func (a *CarStateAPIService) AddCarState(ctx context.Context) ApiAddCarStateRequest {
-	return ApiAddCarStateRequest{
+func (a *CarStateAPIService) CreateCarStates(ctx context.Context) ApiCreateCarStatesRequest {
+	return ApiCreateCarStatesRequest{
 		ApiService: a,
 		ctx: ctx,
 	}
 }
 
 // Execute executes the request
-func (a *CarStateAPIService) AddCarStateExecute(r ApiAddCarStateRequest) (*http.Response, error) {
+func (a *CarStateAPIService) CreateCarStatesExecute(r ApiCreateCarStatesRequest) (*http.Response, error) {
 	var (
 		localVarHTTPMethod   = http.MethodPost
 		localVarPostBody     interface{}
 		formFiles            []formFile
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "CarStateAPIService.AddCarState")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "CarStateAPIService.CreateCarStates")
 	if err != nil {
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}

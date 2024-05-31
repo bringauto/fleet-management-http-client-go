@@ -4,17 +4,17 @@ All URIs are relative to */v2/management*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**AddCarState**](CarStateAPI.md#AddCarState) | **Post** /carstate | Add a new Car State.
+[**CreateCarStates**](CarStateAPI.md#CreateCarStates) | **Post** /carstate | Add new Car States.
 [**GetAllCarStates**](CarStateAPI.md#GetAllCarStates) | **Get** /carstate | Find one or all Car States for all existing Cars.
 [**GetCarStates**](CarStateAPI.md#GetCarStates) | **Get** /carstate/{carId} | Find one or all Car States for a Car with given ID.
 
 
 
-## AddCarState
+## CreateCarStates
 
-> AddCarState(ctx).CarState(carState).Execute()
+> CreateCarStates(ctx).CarState(carState).Execute()
 
-Add a new Car State.
+Add new Car States.
 
 ### Example
 
@@ -29,13 +29,13 @@ import (
 )
 
 func main() {
-	carState := *openapiclient.NewCarState(openapiclient.CarStatus("idle"), int32(1)) // CarState | Car State model in JSON format.
+	carState := []openapiclient.CarState{*openapiclient.NewCarState(openapiclient.CarStatus("idle"), int32(1))} // []CarState | A list of Car State model in JSON format.
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	r, err := apiClient.CarStateAPI.AddCarState(context.Background()).CarState(carState).Execute()
+	r, err := apiClient.CarStateAPI.CreateCarStates(context.Background()).CarState(carState).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `CarStateAPI.AddCarState``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `CarStateAPI.CreateCarStates``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
 }
@@ -47,12 +47,12 @@ func main() {
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiAddCarStateRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiCreateCarStatesRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **carState** | [**CarState**](CarState.md) | Car State model in JSON format. | 
+ **carState** | [**[]CarState**](CarState.md) | A list of Car State model in JSON format. | 
 
 ### Return type
 

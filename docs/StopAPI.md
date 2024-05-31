@@ -4,19 +4,19 @@ All URIs are relative to */v2/management*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**CreateStop**](StopAPI.md#CreateStop) | **Post** /stop | Create a new Stop.
+[**CreateStops**](StopAPI.md#CreateStops) | **Post** /stop | Create new Stops.
 [**DeleteStop**](StopAPI.md#DeleteStop) | **Delete** /stop/{stopId} | Delete a Stop with the specified ID.
 [**GetStop**](StopAPI.md#GetStop) | **Get** /stop/{stopId} | Find and return a single Stop by its ID.
 [**GetStops**](StopAPI.md#GetStops) | **Get** /stop | Find and return all existing Stops.
-[**UpdateStop**](StopAPI.md#UpdateStop) | **Put** /stop | Update already existing Stop.
+[**UpdateStops**](StopAPI.md#UpdateStops) | **Put** /stop | Update already existing Stops.
 
 
 
-## CreateStop
+## CreateStops
 
-> Stop CreateStop(ctx).Stop(stop).Execute()
+> []Stop CreateStops(ctx).Stop(stop).Execute()
 
-Create a new Stop.
+Create new Stops.
 
 ### Example
 
@@ -31,17 +31,17 @@ import (
 )
 
 func main() {
-	stop := *openapiclient.NewStop("Lidická", *openapiclient.NewGNSSPosition()) // Stop | Stop model in JSON format.
+	stop := []openapiclient.Stop{*openapiclient.NewStop("Lidická", *openapiclient.NewGNSSPosition())} // []Stop | A list of Stop models in JSON format.
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.StopAPI.CreateStop(context.Background()).Stop(stop).Execute()
+	resp, r, err := apiClient.StopAPI.CreateStops(context.Background()).Stop(stop).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `StopAPI.CreateStop``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `StopAPI.CreateStops``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `CreateStop`: Stop
-	fmt.Fprintf(os.Stdout, "Response from `StopAPI.CreateStop`: %v\n", resp)
+	// response from `CreateStops`: []Stop
+	fmt.Fprintf(os.Stdout, "Response from `StopAPI.CreateStops`: %v\n", resp)
 }
 ```
 
@@ -51,16 +51,16 @@ func main() {
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiCreateStopRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiCreateStopsRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **stop** | [**Stop**](Stop.md) | Stop model in JSON format. | 
+ **stop** | [**[]Stop**](Stop.md) | A list of Stop models in JSON format. | 
 
 ### Return type
 
-[**Stop**](Stop.md)
+[**[]Stop**](Stop.md)
 
 ### Authorization
 
@@ -269,11 +269,11 @@ Other parameters are passed through a pointer to a apiGetStopsRequest struct via
 [[Back to README]](../README.md)
 
 
-## UpdateStop
+## UpdateStops
 
-> UpdateStop(ctx).Stop(stop).Execute()
+> UpdateStops(ctx).Stop(stop).Execute()
 
-Update already existing Stop.
+Update already existing Stops.
 
 ### Example
 
@@ -288,13 +288,13 @@ import (
 )
 
 func main() {
-	stop := *openapiclient.NewStop("Lidická", *openapiclient.NewGNSSPosition()) // Stop | JSON representation of the updated Stop.
+	stop := []openapiclient.Stop{*openapiclient.NewStop("Lidická", *openapiclient.NewGNSSPosition())} // []Stop | JSON representation of a list of the Stops with updated data.
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	r, err := apiClient.StopAPI.UpdateStop(context.Background()).Stop(stop).Execute()
+	r, err := apiClient.StopAPI.UpdateStops(context.Background()).Stop(stop).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `StopAPI.UpdateStop``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `StopAPI.UpdateStops``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
 }
@@ -306,12 +306,12 @@ func main() {
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiUpdateStopRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiUpdateStopsRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **stop** | [**Stop**](Stop.md) | JSON representation of the updated Stop. | 
+ **stop** | [**[]Stop**](Stop.md) | JSON representation of a list of the Stops with updated data. | 
 
 ### Return type
 

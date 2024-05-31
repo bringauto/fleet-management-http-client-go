@@ -4,19 +4,19 @@ All URIs are relative to */v2/management*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**CreateCar**](CarAPI.md#CreateCar) | **Post** /car | Create a new Car object.
+[**CreateCars**](CarAPI.md#CreateCars) | **Post** /car | Create new Car objects.
 [**DeleteCar**](CarAPI.md#DeleteCar) | **Delete** /car/{carId} | Delete a Car identified by its ID.
 [**GetCar**](CarAPI.md#GetCar) | **Get** /car/{carId} | Find a single Car by its ID.
 [**GetCars**](CarAPI.md#GetCars) | **Get** /car | Find and return all existing Cars.
-[**UpdateCar**](CarAPI.md#UpdateCar) | **Put** /car | Update already existing Car.
+[**UpdateCars**](CarAPI.md#UpdateCars) | **Put** /car | Update already existing Cars.
 
 
 
-## CreateCar
+## CreateCars
 
-> Car CreateCar(ctx).Car(car).Execute()
+> []Car CreateCars(ctx).Car(car).Execute()
 
-Create a new Car object.
+Create new Car objects.
 
 ### Example
 
@@ -31,17 +31,17 @@ import (
 )
 
 func main() {
-	car := *openapiclient.NewCar(int32(1), "BAT-2022-01", *openapiclient.NewMobilePhone()) // Car | A Car model in JSON format.
+	car := []openapiclient.Car{*openapiclient.NewCar(int32(1), "BAT-2022-01", *openapiclient.NewMobilePhone())} // []Car | A list of Car models in JSON format.
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.CarAPI.CreateCar(context.Background()).Car(car).Execute()
+	resp, r, err := apiClient.CarAPI.CreateCars(context.Background()).Car(car).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `CarAPI.CreateCar``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `CarAPI.CreateCars``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `CreateCar`: Car
-	fmt.Fprintf(os.Stdout, "Response from `CarAPI.CreateCar`: %v\n", resp)
+	// response from `CreateCars`: []Car
+	fmt.Fprintf(os.Stdout, "Response from `CarAPI.CreateCars`: %v\n", resp)
 }
 ```
 
@@ -51,16 +51,16 @@ func main() {
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiCreateCarRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiCreateCarsRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **car** | [**Car**](Car.md) | A Car model in JSON format. | 
+ **car** | [**[]Car**](Car.md) | A list of Car models in JSON format. | 
 
 ### Return type
 
-[**Car**](Car.md)
+[**[]Car**](Car.md)
 
 ### Authorization
 
@@ -269,11 +269,11 @@ Other parameters are passed through a pointer to a apiGetCarsRequest struct via 
 [[Back to README]](../README.md)
 
 
-## UpdateCar
+## UpdateCars
 
-> UpdateCar(ctx).Car(car).Execute()
+> UpdateCars(ctx).Car(car).Execute()
 
-Update already existing Car.
+Update already existing Cars.
 
 ### Example
 
@@ -288,13 +288,13 @@ import (
 )
 
 func main() {
-	car := *openapiclient.NewCar(int32(1), "BAT-2022-01", *openapiclient.NewMobilePhone()) // Car | JSON representation of the updated Car.
+	car := []openapiclient.Car{*openapiclient.NewCar(int32(1), "BAT-2022-01", *openapiclient.NewMobilePhone())} // []Car | JSON representation of a list of the Cars with updated data.
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	r, err := apiClient.CarAPI.UpdateCar(context.Background()).Car(car).Execute()
+	r, err := apiClient.CarAPI.UpdateCars(context.Background()).Car(car).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `CarAPI.UpdateCar``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `CarAPI.UpdateCars``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
 }
@@ -306,12 +306,12 @@ func main() {
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiUpdateCarRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiUpdateCarsRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **car** | [**Car**](Car.md) | JSON representation of the updated Car. | 
+ **car** | [**[]Car**](Car.md) | JSON representation of a list of the Cars with updated data. | 
 
 ### Return type
 

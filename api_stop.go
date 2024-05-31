@@ -3,7 +3,7 @@ BringAuto Fleet Management v2 API
 
 Specification for BringAuto fleet backend HTTP API
 
-API version: 2.3.1
+API version: 3.1.0
 Contact: fleet@bringauto.com
 */
 
@@ -24,46 +24,46 @@ import (
 // StopAPIService StopAPI service
 type StopAPIService service
 
-type ApiCreateStopRequest struct {
+type ApiCreateStopsRequest struct {
 	ctx context.Context
 	ApiService *StopAPIService
-	stop *Stop
+	stop *[]Stop
 }
 
-// Stop model in JSON format.
-func (r ApiCreateStopRequest) Stop(stop Stop) ApiCreateStopRequest {
+// A list of Stop models in JSON format.
+func (r ApiCreateStopsRequest) Stop(stop []Stop) ApiCreateStopsRequest {
 	r.stop = &stop
 	return r
 }
 
-func (r ApiCreateStopRequest) Execute() (*Stop, *http.Response, error) {
-	return r.ApiService.CreateStopExecute(r)
+func (r ApiCreateStopsRequest) Execute() ([]Stop, *http.Response, error) {
+	return r.ApiService.CreateStopsExecute(r)
 }
 
 /*
-CreateStop Create a new Stop.
+CreateStops Create new Stops.
 
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @return ApiCreateStopRequest
+ @return ApiCreateStopsRequest
 */
-func (a *StopAPIService) CreateStop(ctx context.Context) ApiCreateStopRequest {
-	return ApiCreateStopRequest{
+func (a *StopAPIService) CreateStops(ctx context.Context) ApiCreateStopsRequest {
+	return ApiCreateStopsRequest{
 		ApiService: a,
 		ctx: ctx,
 	}
 }
 
 // Execute executes the request
-//  @return Stop
-func (a *StopAPIService) CreateStopExecute(r ApiCreateStopRequest) (*Stop, *http.Response, error) {
+//  @return []Stop
+func (a *StopAPIService) CreateStopsExecute(r ApiCreateStopsRequest) ([]Stop, *http.Response, error) {
 	var (
 		localVarHTTPMethod   = http.MethodPost
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		localVarReturnValue  *Stop
+		localVarReturnValue  []Stop
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "StopAPIService.CreateStop")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "StopAPIService.CreateStops")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
@@ -663,44 +663,44 @@ func (a *StopAPIService) GetStopsExecute(r ApiGetStopsRequest) ([]Stop, *http.Re
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
-type ApiUpdateStopRequest struct {
+type ApiUpdateStopsRequest struct {
 	ctx context.Context
 	ApiService *StopAPIService
-	stop *Stop
+	stop *[]Stop
 }
 
-// JSON representation of the updated Stop.
-func (r ApiUpdateStopRequest) Stop(stop Stop) ApiUpdateStopRequest {
+// JSON representation of a list of the Stops with updated data.
+func (r ApiUpdateStopsRequest) Stop(stop []Stop) ApiUpdateStopsRequest {
 	r.stop = &stop
 	return r
 }
 
-func (r ApiUpdateStopRequest) Execute() (*http.Response, error) {
-	return r.ApiService.UpdateStopExecute(r)
+func (r ApiUpdateStopsRequest) Execute() (*http.Response, error) {
+	return r.ApiService.UpdateStopsExecute(r)
 }
 
 /*
-UpdateStop Update already existing Stop.
+UpdateStops Update already existing Stops.
 
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @return ApiUpdateStopRequest
+ @return ApiUpdateStopsRequest
 */
-func (a *StopAPIService) UpdateStop(ctx context.Context) ApiUpdateStopRequest {
-	return ApiUpdateStopRequest{
+func (a *StopAPIService) UpdateStops(ctx context.Context) ApiUpdateStopsRequest {
+	return ApiUpdateStopsRequest{
 		ApiService: a,
 		ctx: ctx,
 	}
 }
 
 // Execute executes the request
-func (a *StopAPIService) UpdateStopExecute(r ApiUpdateStopRequest) (*http.Response, error) {
+func (a *StopAPIService) UpdateStopsExecute(r ApiUpdateStopsRequest) (*http.Response, error) {
 	var (
 		localVarHTTPMethod   = http.MethodPut
 		localVarPostBody     interface{}
 		formFiles            []formFile
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "StopAPIService.UpdateStop")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "StopAPIService.UpdateStops")
 	if err != nil {
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}

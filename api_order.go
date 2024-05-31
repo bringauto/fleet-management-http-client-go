@@ -3,7 +3,7 @@ BringAuto Fleet Management v2 API
 
 Specification for BringAuto fleet backend HTTP API
 
-API version: 2.3.1
+API version: 3.1.0
 Contact: fleet@bringauto.com
 */
 
@@ -24,46 +24,46 @@ import (
 // OrderAPIService OrderAPI service
 type OrderAPIService service
 
-type ApiCreateOrderRequest struct {
+type ApiCreateOrdersRequest struct {
 	ctx context.Context
 	ApiService *OrderAPIService
-	order *Order
+	order *[]Order
 }
 
-// Order model in JSON format.
-func (r ApiCreateOrderRequest) Order(order Order) ApiCreateOrderRequest {
+// A list of Order models in JSON format.
+func (r ApiCreateOrdersRequest) Order(order []Order) ApiCreateOrdersRequest {
 	r.order = &order
 	return r
 }
 
-func (r ApiCreateOrderRequest) Execute() (*Order, *http.Response, error) {
-	return r.ApiService.CreateOrderExecute(r)
+func (r ApiCreateOrdersRequest) Execute() ([]Order, *http.Response, error) {
+	return r.ApiService.CreateOrdersExecute(r)
 }
 
 /*
-CreateOrder Create a new Order.
+CreateOrders Create new Orders.
 
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @return ApiCreateOrderRequest
+ @return ApiCreateOrdersRequest
 */
-func (a *OrderAPIService) CreateOrder(ctx context.Context) ApiCreateOrderRequest {
-	return ApiCreateOrderRequest{
+func (a *OrderAPIService) CreateOrders(ctx context.Context) ApiCreateOrdersRequest {
+	return ApiCreateOrdersRequest{
 		ApiService: a,
 		ctx: ctx,
 	}
 }
 
 // Execute executes the request
-//  @return Order
-func (a *OrderAPIService) CreateOrderExecute(r ApiCreateOrderRequest) (*Order, *http.Response, error) {
+//  @return []Order
+func (a *OrderAPIService) CreateOrdersExecute(r ApiCreateOrdersRequest) ([]Order, *http.Response, error) {
 	var (
 		localVarHTTPMethod   = http.MethodPost
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		localVarReturnValue  *Order
+		localVarReturnValue  []Order
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "OrderAPIService.CreateOrder")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "OrderAPIService.CreateOrders")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
