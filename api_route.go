@@ -3,7 +3,7 @@ BringAuto Fleet Management v2 API
 
 Specification for BringAuto fleet backend HTTP API
 
-API version: 2.3.1
+API version: 3.1.0
 Contact: fleet@bringauto.com
 */
 
@@ -24,46 +24,46 @@ import (
 // RouteAPIService RouteAPI service
 type RouteAPIService service
 
-type ApiCreateRouteRequest struct {
+type ApiCreateRoutesRequest struct {
 	ctx context.Context
 	ApiService *RouteAPIService
-	route *Route
+	route *[]Route
 }
 
-// Route model in JSON format.
-func (r ApiCreateRouteRequest) Route(route Route) ApiCreateRouteRequest {
+// A list of Route models in JSON format.
+func (r ApiCreateRoutesRequest) Route(route []Route) ApiCreateRoutesRequest {
 	r.route = &route
 	return r
 }
 
-func (r ApiCreateRouteRequest) Execute() (*Route, *http.Response, error) {
-	return r.ApiService.CreateRouteExecute(r)
+func (r ApiCreateRoutesRequest) Execute() ([]Route, *http.Response, error) {
+	return r.ApiService.CreateRoutesExecute(r)
 }
 
 /*
-CreateRoute Create a new Route.
+CreateRoutes Create new Routes.
 
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @return ApiCreateRouteRequest
+ @return ApiCreateRoutesRequest
 */
-func (a *RouteAPIService) CreateRoute(ctx context.Context) ApiCreateRouteRequest {
-	return ApiCreateRouteRequest{
+func (a *RouteAPIService) CreateRoutes(ctx context.Context) ApiCreateRoutesRequest {
+	return ApiCreateRoutesRequest{
 		ApiService: a,
 		ctx: ctx,
 	}
 }
 
 // Execute executes the request
-//  @return Route
-func (a *RouteAPIService) CreateRouteExecute(r ApiCreateRouteRequest) (*Route, *http.Response, error) {
+//  @return []Route
+func (a *RouteAPIService) CreateRoutesExecute(r ApiCreateRoutesRequest) ([]Route, *http.Response, error) {
 	var (
 		localVarHTTPMethod   = http.MethodPost
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		localVarReturnValue  *Route
+		localVarReturnValue  []Route
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "RouteAPIService.CreateRoute")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "RouteAPIService.CreateRoutes")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
@@ -830,46 +830,46 @@ func (a *RouteAPIService) GetRoutesExecute(r ApiGetRoutesRequest) ([]Route, *htt
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
-type ApiRedefineRouteVisualizationRequest struct {
+type ApiRedefineRouteVisualizationsRequest struct {
 	ctx context.Context
 	ApiService *RouteAPIService
-	routeVisualization *RouteVisualization
+	routeVisualization *[]RouteVisualization
 }
 
-// Route Visualization model in JSON format.
-func (r ApiRedefineRouteVisualizationRequest) RouteVisualization(routeVisualization RouteVisualization) ApiRedefineRouteVisualizationRequest {
+// A list of Route Visualization models in JSON format.
+func (r ApiRedefineRouteVisualizationsRequest) RouteVisualization(routeVisualization []RouteVisualization) ApiRedefineRouteVisualizationsRequest {
 	r.routeVisualization = &routeVisualization
 	return r
 }
 
-func (r ApiRedefineRouteVisualizationRequest) Execute() (*RouteVisualization, *http.Response, error) {
-	return r.ApiService.RedefineRouteVisualizationExecute(r)
+func (r ApiRedefineRouteVisualizationsRequest) Execute() ([]RouteVisualization, *http.Response, error) {
+	return r.ApiService.RedefineRouteVisualizationsExecute(r)
 }
 
 /*
-RedefineRouteVisualization Redefine Route Visualization for an existing Route.
+RedefineRouteVisualizations Redefine Route Visualizations for existing Routes.
 
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @return ApiRedefineRouteVisualizationRequest
+ @return ApiRedefineRouteVisualizationsRequest
 */
-func (a *RouteAPIService) RedefineRouteVisualization(ctx context.Context) ApiRedefineRouteVisualizationRequest {
-	return ApiRedefineRouteVisualizationRequest{
+func (a *RouteAPIService) RedefineRouteVisualizations(ctx context.Context) ApiRedefineRouteVisualizationsRequest {
+	return ApiRedefineRouteVisualizationsRequest{
 		ApiService: a,
 		ctx: ctx,
 	}
 }
 
 // Execute executes the request
-//  @return RouteVisualization
-func (a *RouteAPIService) RedefineRouteVisualizationExecute(r ApiRedefineRouteVisualizationRequest) (*RouteVisualization, *http.Response, error) {
+//  @return []RouteVisualization
+func (a *RouteAPIService) RedefineRouteVisualizationsExecute(r ApiRedefineRouteVisualizationsRequest) ([]RouteVisualization, *http.Response, error) {
 	var (
 		localVarHTTPMethod   = http.MethodPost
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		localVarReturnValue  *RouteVisualization
+		localVarReturnValue  []RouteVisualization
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "RouteAPIService.RedefineRouteVisualization")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "RouteAPIService.RedefineRouteVisualizations")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
@@ -1005,44 +1005,44 @@ func (a *RouteAPIService) RedefineRouteVisualizationExecute(r ApiRedefineRouteVi
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
-type ApiUpdateRouteRequest struct {
+type ApiUpdateRoutesRequest struct {
 	ctx context.Context
 	ApiService *RouteAPIService
-	route *Route
+	route *[]Route
 }
 
-// JSON representation of the updated Route.
-func (r ApiUpdateRouteRequest) Route(route Route) ApiUpdateRouteRequest {
+// JSON representation of a list of the Routes with updated data.
+func (r ApiUpdateRoutesRequest) Route(route []Route) ApiUpdateRoutesRequest {
 	r.route = &route
 	return r
 }
 
-func (r ApiUpdateRouteRequest) Execute() (*http.Response, error) {
-	return r.ApiService.UpdateRouteExecute(r)
+func (r ApiUpdateRoutesRequest) Execute() (*http.Response, error) {
+	return r.ApiService.UpdateRoutesExecute(r)
 }
 
 /*
-UpdateRoute Update already existing Route.
+UpdateRoutes Update already existing Routes.
 
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @return ApiUpdateRouteRequest
+ @return ApiUpdateRoutesRequest
 */
-func (a *RouteAPIService) UpdateRoute(ctx context.Context) ApiUpdateRouteRequest {
-	return ApiUpdateRouteRequest{
+func (a *RouteAPIService) UpdateRoutes(ctx context.Context) ApiUpdateRoutesRequest {
+	return ApiUpdateRoutesRequest{
 		ApiService: a,
 		ctx: ctx,
 	}
 }
 
 // Execute executes the request
-func (a *RouteAPIService) UpdateRouteExecute(r ApiUpdateRouteRequest) (*http.Response, error) {
+func (a *RouteAPIService) UpdateRoutesExecute(r ApiUpdateRoutesRequest) (*http.Response, error) {
 	var (
 		localVarHTTPMethod   = http.MethodPut
 		localVarPostBody     interface{}
 		formFiles            []formFile
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "RouteAPIService.UpdateRoute")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "RouteAPIService.UpdateRoutes")
 	if err != nil {
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}

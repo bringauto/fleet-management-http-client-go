@@ -6,7 +6,6 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Id** | Pointer to **int32** |  | [optional] 
 **Priority** | Pointer to **string** | Priority (low, normal, high) | [optional] [default to "normal"]
-**UserId** | **int32** |  | 
 **Timestamp** | Pointer to **int64** | A Unix timestamp in milliseconds. The timestamp is used to determine the time of creation of an object. | [optional] 
 **CarId** | **int32** |  | 
 **Notification** | Pointer to **string** |  | [optional] 
@@ -14,12 +13,13 @@ Name | Type | Description | Notes
 **StopRouteId** | **int32** |  | 
 **NotificationPhone** | Pointer to [**MobilePhone**](MobilePhone.md) |  | [optional] 
 **LastState** | Pointer to [**OrderState**](OrderState.md) |  | [optional] 
+**IsVisible** | Pointer to **bool** |  | [optional] [default to true]
 
 ## Methods
 
 ### NewOrder
 
-`func NewOrder(userId int32, carId int32, targetStopId int32, stopRouteId int32, ) *Order`
+`func NewOrder(carId int32, targetStopId int32, stopRouteId int32, ) *Order`
 
 NewOrder instantiates a new Order object
 This constructor will assign default values to properties that have it defined,
@@ -83,26 +83,6 @@ SetPriority sets Priority field to given value.
 `func (o *Order) HasPriority() bool`
 
 HasPriority returns a boolean if a field has been set.
-
-### GetUserId
-
-`func (o *Order) GetUserId() int32`
-
-GetUserId returns the UserId field if non-nil, zero value otherwise.
-
-### GetUserIdOk
-
-`func (o *Order) GetUserIdOk() (*int32, bool)`
-
-GetUserIdOk returns a tuple with the UserId field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetUserId
-
-`func (o *Order) SetUserId(v int32)`
-
-SetUserId sets UserId field to given value.
-
 
 ### GetTimestamp
 
@@ -263,6 +243,31 @@ SetLastState sets LastState field to given value.
 `func (o *Order) HasLastState() bool`
 
 HasLastState returns a boolean if a field has been set.
+
+### GetIsVisible
+
+`func (o *Order) GetIsVisible() bool`
+
+GetIsVisible returns the IsVisible field if non-nil, zero value otherwise.
+
+### GetIsVisibleOk
+
+`func (o *Order) GetIsVisibleOk() (*bool, bool)`
+
+GetIsVisibleOk returns a tuple with the IsVisible field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetIsVisible
+
+`func (o *Order) SetIsVisible(v bool)`
+
+SetIsVisible sets IsVisible field to given value.
+
+### HasIsVisible
+
+`func (o *Order) HasIsVisible() bool`
+
+HasIsVisible returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

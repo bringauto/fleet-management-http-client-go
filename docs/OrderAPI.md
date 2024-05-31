@@ -4,7 +4,7 @@ All URIs are relative to */v2/management*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**CreateOrder**](OrderAPI.md#CreateOrder) | **Post** /order | Create a new Order.
+[**CreateOrders**](OrderAPI.md#CreateOrders) | **Post** /order | Create new Orders.
 [**DeleteOrder**](OrderAPI.md#DeleteOrder) | **Delete** /order/{carId}/{orderId} | Delete an Order identified by its ID and ID of a car to which it is assigned.
 [**GetCarOrders**](OrderAPI.md#GetCarOrders) | **Get** /order/{carId} | Find existing Orders by the corresponding Car ID and return them.
 [**GetOrder**](OrderAPI.md#GetOrder) | **Get** /order/{carId}/{orderId} | Find an existing Order by the car ID and the order ID and return it.
@@ -12,11 +12,11 @@ Method | HTTP request | Description
 
 
 
-## CreateOrder
+## CreateOrders
 
-> Order CreateOrder(ctx).Order(order).Execute()
+> []Order CreateOrders(ctx).Order(order).Execute()
 
-Create a new Order.
+Create new Orders.
 
 ### Example
 
@@ -31,17 +31,17 @@ import (
 )
 
 func main() {
-	order := *openapiclient.NewOrder(int32(1), int32(1), int32(1), int32(1)) // Order | Order model in JSON format.
+	order := []openapiclient.Order{*openapiclient.NewOrder(int32(1), int32(1), int32(1))} // []Order | A list of Order models in JSON format.
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.OrderAPI.CreateOrder(context.Background()).Order(order).Execute()
+	resp, r, err := apiClient.OrderAPI.CreateOrders(context.Background()).Order(order).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `OrderAPI.CreateOrder``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `OrderAPI.CreateOrders``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `CreateOrder`: Order
-	fmt.Fprintf(os.Stdout, "Response from `OrderAPI.CreateOrder`: %v\n", resp)
+	// response from `CreateOrders`: []Order
+	fmt.Fprintf(os.Stdout, "Response from `OrderAPI.CreateOrders`: %v\n", resp)
 }
 ```
 
@@ -51,16 +51,16 @@ func main() {
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiCreateOrderRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiCreateOrdersRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **order** | [**Order**](Order.md) | Order model in JSON format. | 
+ **order** | [**[]Order**](Order.md) | A list of Order models in JSON format. | 
 
 ### Return type
 
-[**Order**](Order.md)
+[**[]Order**](Order.md)
 
 ### Authorization
 

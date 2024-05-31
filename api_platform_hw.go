@@ -3,7 +3,7 @@ BringAuto Fleet Management v2 API
 
 Specification for BringAuto fleet backend HTTP API
 
-API version: 2.3.1
+API version: 3.1.0
 Contact: fleet@bringauto.com
 */
 
@@ -24,46 +24,46 @@ import (
 // PlatformHWAPIService PlatformHWAPI service
 type PlatformHWAPIService service
 
-type ApiCreateHwRequest struct {
+type ApiCreateHwsRequest struct {
 	ctx context.Context
 	ApiService *PlatformHWAPIService
-	platformHW *PlatformHW
+	platformHW *[]PlatformHW
 }
 
-// Platform HW model in JSON format.
-func (r ApiCreateHwRequest) PlatformHW(platformHW PlatformHW) ApiCreateHwRequest {
+// A list of Platform HW models in JSON format.
+func (r ApiCreateHwsRequest) PlatformHW(platformHW []PlatformHW) ApiCreateHwsRequest {
 	r.platformHW = &platformHW
 	return r
 }
 
-func (r ApiCreateHwRequest) Execute() (*PlatformHW, *http.Response, error) {
-	return r.ApiService.CreateHwExecute(r)
+func (r ApiCreateHwsRequest) Execute() ([]PlatformHW, *http.Response, error) {
+	return r.ApiService.CreateHwsExecute(r)
 }
 
 /*
-CreateHw Create a new Platform HW object.
+CreateHws Create new Platform HW objects.
 
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @return ApiCreateHwRequest
+ @return ApiCreateHwsRequest
 */
-func (a *PlatformHWAPIService) CreateHw(ctx context.Context) ApiCreateHwRequest {
-	return ApiCreateHwRequest{
+func (a *PlatformHWAPIService) CreateHws(ctx context.Context) ApiCreateHwsRequest {
+	return ApiCreateHwsRequest{
 		ApiService: a,
 		ctx: ctx,
 	}
 }
 
 // Execute executes the request
-//  @return PlatformHW
-func (a *PlatformHWAPIService) CreateHwExecute(r ApiCreateHwRequest) (*PlatformHW, *http.Response, error) {
+//  @return []PlatformHW
+func (a *PlatformHWAPIService) CreateHwsExecute(r ApiCreateHwsRequest) ([]PlatformHW, *http.Response, error) {
 	var (
 		localVarHTTPMethod   = http.MethodPost
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		localVarReturnValue  *PlatformHW
+		localVarReturnValue  []PlatformHW
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "PlatformHWAPIService.CreateHw")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "PlatformHWAPIService.CreateHws")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}

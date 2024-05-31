@@ -4,21 +4,21 @@ All URIs are relative to */v2/management*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**CreateRoute**](RouteAPI.md#CreateRoute) | **Post** /route | Create a new Route.
+[**CreateRoutes**](RouteAPI.md#CreateRoutes) | **Post** /route | Create new Routes.
 [**DeleteRoute**](RouteAPI.md#DeleteRoute) | **Delete** /route/{routeId} | Delete a Route with the specified ID.
 [**GetRoute**](RouteAPI.md#GetRoute) | **Get** /route/{routeId} | Find a single Route with the specified ID.
 [**GetRouteVisualization**](RouteAPI.md#GetRouteVisualization) | **Get** /route-visualization/{routeId} | Find Route Visualization for a Route identified by the route&#39;s ID.
 [**GetRoutes**](RouteAPI.md#GetRoutes) | **Get** /route | Find and return all existing Routes.
-[**RedefineRouteVisualization**](RouteAPI.md#RedefineRouteVisualization) | **Post** /route-visualization | Redefine Route Visualization for an existing Route.
-[**UpdateRoute**](RouteAPI.md#UpdateRoute) | **Put** /route | Update already existing Route.
+[**RedefineRouteVisualizations**](RouteAPI.md#RedefineRouteVisualizations) | **Post** /route-visualization | Redefine Route Visualizations for existing Routes.
+[**UpdateRoutes**](RouteAPI.md#UpdateRoutes) | **Put** /route | Update already existing Routes.
 
 
 
-## CreateRoute
+## CreateRoutes
 
-> Route CreateRoute(ctx).Route(route).Execute()
+> []Route CreateRoutes(ctx).Route(route).Execute()
 
-Create a new Route.
+Create new Routes.
 
 ### Example
 
@@ -33,17 +33,17 @@ import (
 )
 
 func main() {
-	route := *openapiclient.NewRoute("Lužánky") // Route | Route model in JSON format.
+	route := []openapiclient.Route{*openapiclient.NewRoute("Lužánky")} // []Route | A list of Route models in JSON format.
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.RouteAPI.CreateRoute(context.Background()).Route(route).Execute()
+	resp, r, err := apiClient.RouteAPI.CreateRoutes(context.Background()).Route(route).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `RouteAPI.CreateRoute``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `RouteAPI.CreateRoutes``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `CreateRoute`: Route
-	fmt.Fprintf(os.Stdout, "Response from `RouteAPI.CreateRoute`: %v\n", resp)
+	// response from `CreateRoutes`: []Route
+	fmt.Fprintf(os.Stdout, "Response from `RouteAPI.CreateRoutes`: %v\n", resp)
 }
 ```
 
@@ -53,16 +53,16 @@ func main() {
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiCreateRouteRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiCreateRoutesRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **route** | [**Route**](Route.md) | Route model in JSON format. | 
+ **route** | [**[]Route**](Route.md) | A list of Route models in JSON format. | 
 
 ### Return type
 
-[**Route**](Route.md)
+[**[]Route**](Route.md)
 
 ### Authorization
 
@@ -339,11 +339,11 @@ Other parameters are passed through a pointer to a apiGetRoutesRequest struct vi
 [[Back to README]](../README.md)
 
 
-## RedefineRouteVisualization
+## RedefineRouteVisualizations
 
-> RouteVisualization RedefineRouteVisualization(ctx).RouteVisualization(routeVisualization).Execute()
+> []RouteVisualization RedefineRouteVisualizations(ctx).RouteVisualization(routeVisualization).Execute()
 
-Redefine Route Visualization for an existing Route.
+Redefine Route Visualizations for existing Routes.
 
 ### Example
 
@@ -358,17 +358,17 @@ import (
 )
 
 func main() {
-	routeVisualization := *openapiclient.NewRouteVisualization(int32(1), []openapiclient.GNSSPosition{*openapiclient.NewGNSSPosition()}) // RouteVisualization | Route Visualization model in JSON format.
+	routeVisualization := []openapiclient.RouteVisualization{*openapiclient.NewRouteVisualization(int32(1), []openapiclient.GNSSPosition{*openapiclient.NewGNSSPosition()})} // []RouteVisualization | A list of Route Visualization models in JSON format.
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.RouteAPI.RedefineRouteVisualization(context.Background()).RouteVisualization(routeVisualization).Execute()
+	resp, r, err := apiClient.RouteAPI.RedefineRouteVisualizations(context.Background()).RouteVisualization(routeVisualization).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `RouteAPI.RedefineRouteVisualization``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `RouteAPI.RedefineRouteVisualizations``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `RedefineRouteVisualization`: RouteVisualization
-	fmt.Fprintf(os.Stdout, "Response from `RouteAPI.RedefineRouteVisualization`: %v\n", resp)
+	// response from `RedefineRouteVisualizations`: []RouteVisualization
+	fmt.Fprintf(os.Stdout, "Response from `RouteAPI.RedefineRouteVisualizations`: %v\n", resp)
 }
 ```
 
@@ -378,16 +378,16 @@ func main() {
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiRedefineRouteVisualizationRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiRedefineRouteVisualizationsRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **routeVisualization** | [**RouteVisualization**](RouteVisualization.md) | Route Visualization model in JSON format. | 
+ **routeVisualization** | [**[]RouteVisualization**](RouteVisualization.md) | A list of Route Visualization models in JSON format. | 
 
 ### Return type
 
-[**RouteVisualization**](RouteVisualization.md)
+[**[]RouteVisualization**](RouteVisualization.md)
 
 ### Authorization
 
@@ -403,11 +403,11 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
-## UpdateRoute
+## UpdateRoutes
 
-> UpdateRoute(ctx).Route(route).Execute()
+> UpdateRoutes(ctx).Route(route).Execute()
 
-Update already existing Route.
+Update already existing Routes.
 
 ### Example
 
@@ -422,13 +422,13 @@ import (
 )
 
 func main() {
-	route := *openapiclient.NewRoute("Lužánky") // Route | JSON representation of the updated Route.
+	route := []openapiclient.Route{*openapiclient.NewRoute("Lužánky")} // []Route | JSON representation of a list of the Routes with updated data.
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	r, err := apiClient.RouteAPI.UpdateRoute(context.Background()).Route(route).Execute()
+	r, err := apiClient.RouteAPI.UpdateRoutes(context.Background()).Route(route).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `RouteAPI.UpdateRoute``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `RouteAPI.UpdateRoutes``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
 }
@@ -440,12 +440,12 @@ func main() {
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiUpdateRouteRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiUpdateRoutesRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **route** | [**Route**](Route.md) | JSON representation of the updated Route. | 
+ **route** | [**[]Route**](Route.md) | JSON representation of a list of the Routes with updated data. | 
 
 ### Return type
 

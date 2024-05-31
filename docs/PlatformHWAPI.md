@@ -4,18 +4,18 @@ All URIs are relative to */v2/management*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**CreateHw**](PlatformHWAPI.md#CreateHw) | **Post** /platformhw | Create a new Platform HW object.
+[**CreateHws**](PlatformHWAPI.md#CreateHws) | **Post** /platformhw | Create new Platform HW objects.
 [**DeleteHw**](PlatformHWAPI.md#DeleteHw) | **Delete** /platformhw/{platformHwId} | Delete Platform HW with the given ID.
 [**GetHw**](PlatformHWAPI.md#GetHw) | **Get** /platformhw/{platformHwId} | Find Platform HW with the given ID.
 [**GetHws**](PlatformHWAPI.md#GetHws) | **Get** /platformhw | Find and return all existing Platform HW.
 
 
 
-## CreateHw
+## CreateHws
 
-> PlatformHW CreateHw(ctx).PlatformHW(platformHW).Execute()
+> []PlatformHW CreateHws(ctx).PlatformHW(platformHW).Execute()
 
-Create a new Platform HW object.
+Create new Platform HW objects.
 
 ### Example
 
@@ -30,17 +30,17 @@ import (
 )
 
 func main() {
-	platformHW := *openapiclient.NewPlatformHW("ABCD1234EF56") // PlatformHW | Platform HW model in JSON format.
+	platformHW := []openapiclient.PlatformHW{*openapiclient.NewPlatformHW("ABCD1234EF56")} // []PlatformHW | A list of Platform HW models in JSON format.
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.PlatformHWAPI.CreateHw(context.Background()).PlatformHW(platformHW).Execute()
+	resp, r, err := apiClient.PlatformHWAPI.CreateHws(context.Background()).PlatformHW(platformHW).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `PlatformHWAPI.CreateHw``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `PlatformHWAPI.CreateHws``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `CreateHw`: PlatformHW
-	fmt.Fprintf(os.Stdout, "Response from `PlatformHWAPI.CreateHw`: %v\n", resp)
+	// response from `CreateHws`: []PlatformHW
+	fmt.Fprintf(os.Stdout, "Response from `PlatformHWAPI.CreateHws`: %v\n", resp)
 }
 ```
 
@@ -50,16 +50,16 @@ func main() {
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiCreateHwRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiCreateHwsRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **platformHW** | [**PlatformHW**](PlatformHW.md) | Platform HW model in JSON format. | 
+ **platformHW** | [**[]PlatformHW**](PlatformHW.md) | A list of Platform HW models in JSON format. | 
 
 ### Return type
 
-[**PlatformHW**](PlatformHW.md)
+[**[]PlatformHW**](PlatformHW.md)
 
 ### Authorization
 

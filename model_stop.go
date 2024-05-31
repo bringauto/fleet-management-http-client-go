@@ -3,7 +3,7 @@ BringAuto Fleet Management v2 API
 
 Specification for BringAuto fleet backend HTTP API
 
-API version: 2.3.1
+API version: 3.1.0
 Contact: fleet@bringauto.com
 */
 
@@ -26,6 +26,8 @@ type Stop struct {
 	Name string `json:"name"`
 	Position GNSSPosition `json:"position"`
 	NotificationPhone *MobilePhone `json:"notificationPhone,omitempty"`
+	// If set to true, an Order to this Stop is always automatically created when creating Orders for the Route containing this Stop.
+	IsAutoStop *bool `json:"isAutoStop,omitempty"`
 }
 
 type _Stop Stop
@@ -38,6 +40,8 @@ func NewStop(name string, position GNSSPosition) *Stop {
 	this := Stop{}
 	this.Name = name
 	this.Position = position
+	var isAutoStop bool = false
+	this.IsAutoStop = &isAutoStop
 	return &this
 }
 
@@ -46,6 +50,8 @@ func NewStop(name string, position GNSSPosition) *Stop {
 // but it doesn't guarantee that properties required by API are set
 func NewStopWithDefaults() *Stop {
 	this := Stop{}
+	var isAutoStop bool = false
+	this.IsAutoStop = &isAutoStop
 	return &this
 }
 
@@ -161,6 +167,38 @@ func (o *Stop) SetNotificationPhone(v MobilePhone) {
 	o.NotificationPhone = &v
 }
 
+// GetIsAutoStop returns the IsAutoStop field value if set, zero value otherwise.
+func (o *Stop) GetIsAutoStop() bool {
+	if o == nil || IsNil(o.IsAutoStop) {
+		var ret bool
+		return ret
+	}
+	return *o.IsAutoStop
+}
+
+// GetIsAutoStopOk returns a tuple with the IsAutoStop field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *Stop) GetIsAutoStopOk() (*bool, bool) {
+	if o == nil || IsNil(o.IsAutoStop) {
+		return nil, false
+	}
+	return o.IsAutoStop, true
+}
+
+// HasIsAutoStop returns a boolean if a field has been set.
+func (o *Stop) HasIsAutoStop() bool {
+	if o != nil && !IsNil(o.IsAutoStop) {
+		return true
+	}
+
+	return false
+}
+
+// SetIsAutoStop gets a reference to the given bool and assigns it to the IsAutoStop field.
+func (o *Stop) SetIsAutoStop(v bool) {
+	o.IsAutoStop = &v
+}
+
 func (o Stop) MarshalJSON() ([]byte, error) {
 	toSerialize,err := o.ToMap()
 	if err != nil {
@@ -178,6 +216,9 @@ func (o Stop) ToMap() (map[string]interface{}, error) {
 	toSerialize["position"] = o.Position
 	if !IsNil(o.NotificationPhone) {
 		toSerialize["notificationPhone"] = o.NotificationPhone
+	}
+	if !IsNil(o.IsAutoStop) {
+		toSerialize["isAutoStop"] = o.IsAutoStop
 	}
 	return toSerialize, nil
 }

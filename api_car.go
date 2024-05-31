@@ -3,7 +3,7 @@ BringAuto Fleet Management v2 API
 
 Specification for BringAuto fleet backend HTTP API
 
-API version: 2.3.1
+API version: 3.1.0
 Contact: fleet@bringauto.com
 */
 
@@ -24,46 +24,46 @@ import (
 // CarAPIService CarAPI service
 type CarAPIService service
 
-type ApiCreateCarRequest struct {
+type ApiCreateCarsRequest struct {
 	ctx context.Context
 	ApiService *CarAPIService
-	car *Car
+	car *[]Car
 }
 
-// A Car model in JSON format.
-func (r ApiCreateCarRequest) Car(car Car) ApiCreateCarRequest {
+// A list of Car models in JSON format.
+func (r ApiCreateCarsRequest) Car(car []Car) ApiCreateCarsRequest {
 	r.car = &car
 	return r
 }
 
-func (r ApiCreateCarRequest) Execute() (*Car, *http.Response, error) {
-	return r.ApiService.CreateCarExecute(r)
+func (r ApiCreateCarsRequest) Execute() ([]Car, *http.Response, error) {
+	return r.ApiService.CreateCarsExecute(r)
 }
 
 /*
-CreateCar Create a new Car object.
+CreateCars Create new Car objects.
 
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @return ApiCreateCarRequest
+ @return ApiCreateCarsRequest
 */
-func (a *CarAPIService) CreateCar(ctx context.Context) ApiCreateCarRequest {
-	return ApiCreateCarRequest{
+func (a *CarAPIService) CreateCars(ctx context.Context) ApiCreateCarsRequest {
+	return ApiCreateCarsRequest{
 		ApiService: a,
 		ctx: ctx,
 	}
 }
 
 // Execute executes the request
-//  @return Car
-func (a *CarAPIService) CreateCarExecute(r ApiCreateCarRequest) (*Car, *http.Response, error) {
+//  @return []Car
+func (a *CarAPIService) CreateCarsExecute(r ApiCreateCarsRequest) ([]Car, *http.Response, error) {
 	var (
 		localVarHTTPMethod   = http.MethodPost
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		localVarReturnValue  *Car
+		localVarReturnValue  []Car
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "CarAPIService.CreateCar")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "CarAPIService.CreateCars")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
@@ -663,44 +663,44 @@ func (a *CarAPIService) GetCarsExecute(r ApiGetCarsRequest) ([]Car, *http.Respon
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
-type ApiUpdateCarRequest struct {
+type ApiUpdateCarsRequest struct {
 	ctx context.Context
 	ApiService *CarAPIService
-	car *Car
+	car *[]Car
 }
 
-// JSON representation of the updated Car.
-func (r ApiUpdateCarRequest) Car(car Car) ApiUpdateCarRequest {
+// JSON representation of a list of the Cars with updated data.
+func (r ApiUpdateCarsRequest) Car(car []Car) ApiUpdateCarsRequest {
 	r.car = &car
 	return r
 }
 
-func (r ApiUpdateCarRequest) Execute() (*http.Response, error) {
-	return r.ApiService.UpdateCarExecute(r)
+func (r ApiUpdateCarsRequest) Execute() (*http.Response, error) {
+	return r.ApiService.UpdateCarsExecute(r)
 }
 
 /*
-UpdateCar Update already existing Car.
+UpdateCars Update already existing Cars.
 
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @return ApiUpdateCarRequest
+ @return ApiUpdateCarsRequest
 */
-func (a *CarAPIService) UpdateCar(ctx context.Context) ApiUpdateCarRequest {
-	return ApiUpdateCarRequest{
+func (a *CarAPIService) UpdateCars(ctx context.Context) ApiUpdateCarsRequest {
+	return ApiUpdateCarsRequest{
 		ApiService: a,
 		ctx: ctx,
 	}
 }
 
 // Execute executes the request
-func (a *CarAPIService) UpdateCarExecute(r ApiUpdateCarRequest) (*http.Response, error) {
+func (a *CarAPIService) UpdateCarsExecute(r ApiUpdateCarsRequest) (*http.Response, error) {
 	var (
 		localVarHTTPMethod   = http.MethodPut
 		localVarPostBody     interface{}
 		formFiles            []formFile
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "CarAPIService.UpdateCar")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "CarAPIService.UpdateCars")
 	if err != nil {
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
