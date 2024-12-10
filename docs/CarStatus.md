@@ -13,8 +13,6 @@
 
 * `IN_STOP` (value: `"in_stop"`)
 
-* `PAUSED_BY_PHONE` (value: `"paused_by_phone"`)
-
 * `PAUSED_BY_OBSTACLE` (value: `"paused_by_obstacle"`)
 
 * `PAUSED_BY_BUTTON` (value: `"paused_by_button"`)

@@ -3,7 +3,7 @@ BringAuto Fleet Management v2 API
 
 Specification for BringAuto fleet backend HTTP API
 
-API version: 3.1.0
+API version: 3.4.3
 Contact: fleet@bringauto.com
 */
 

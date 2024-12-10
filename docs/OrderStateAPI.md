@@ -12,7 +12,7 @@ Method | HTTP request | Description
 
 ## CreateOrderStates
 
-> OrderState CreateOrderStates(ctx).OrderState(orderState).Execute()
+> []OrderState CreateOrderStates(ctx).OrderState(orderState).Execute()
 
 Add new Order States.
 
@@ -38,7 +38,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `OrderStateAPI.CreateOrderStates``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `CreateOrderStates`: OrderState
+	// response from `CreateOrderStates`: []OrderState
 	fmt.Fprintf(os.Stdout, "Response from `OrderStateAPI.CreateOrderStates`: %v\n", resp)
 }
 ```
@@ -58,7 +58,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**OrderState**](OrderState.md)
+[**[]OrderState**](OrderState.md)
 
 ### Authorization
 

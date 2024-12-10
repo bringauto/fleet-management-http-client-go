@@ -3,7 +3,7 @@ BringAuto Fleet Management v2 API
 
 Specification for BringAuto fleet backend HTTP API
 
-API version: 3.1.0
+API version: 3.4.3
 Contact: fleet@bringauto.com
 */
 
@@ -183,16 +183,16 @@ func (a *SecurityAPIService) TokenGetExecute(r ApiTokenGetRequest) (*http.Respon
 	localVarFormParams := url.Values{}
 
 	if r.state != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "state", r.state, "")
+		parameterAddToHeaderOrQuery(localVarQueryParams, "state", r.state, "form", "")
 	}
 	if r.sessionState != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "session_state", r.sessionState, "")
+		parameterAddToHeaderOrQuery(localVarQueryParams, "session_state", r.sessionState, "form", "")
 	}
 	if r.iss != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "iss", r.iss, "")
+		parameterAddToHeaderOrQuery(localVarQueryParams, "iss", r.iss, "form", "")
 	}
 	if r.code != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "code", r.code, "")
+		parameterAddToHeaderOrQuery(localVarQueryParams, "code", r.code, "form", "")
 	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
@@ -292,7 +292,7 @@ func (a *SecurityAPIService) TokenRefreshExecute(r ApiTokenRefreshRequest) (*htt
 		return nil, reportError("refreshToken is required and must be specified")
 	}
 
-	parameterAddToHeaderOrQuery(localVarQueryParams, "refresh_token", r.refreshToken, "")
+	parameterAddToHeaderOrQuery(localVarQueryParams, "refresh_token", r.refreshToken, "form", "")
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
 

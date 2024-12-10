@@ -11,6 +11,7 @@ Name | Type | Description | Notes
 **DefaultRouteId** | Pointer to **int32** |  | [optional] 
 **UnderTest** | Pointer to **bool** |  | [optional] [default to true]
 **LastState** | Pointer to [**CarState**](CarState.md) |  | [optional] 
+**LastActionState** | Pointer to [**CarActionState**](CarActionState.md) |  | [optional] 
 
 ## Methods
 
@@ -190,6 +191,31 @@ SetLastState sets LastState field to given value.
 `func (o *Car) HasLastState() bool`
 
 HasLastState returns a boolean if a field has been set.
+
+### GetLastActionState
+
+`func (o *Car) GetLastActionState() CarActionState`
+
+GetLastActionState returns the LastActionState field if non-nil, zero value otherwise.
+
+### GetLastActionStateOk
+
+`func (o *Car) GetLastActionStateOk() (*CarActionState, bool)`
+
+GetLastActionStateOk returns a tuple with the LastActionState field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetLastActionState
+
+`func (o *Car) SetLastActionState(v CarActionState)`
+
+SetLastActionState sets LastActionState field to given value.
+
+### HasLastActionState
+
+`func (o *Car) HasLastActionState() bool`
+
+HasLastActionState returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

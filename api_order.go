@@ -3,7 +3,7 @@ BringAuto Fleet Management v2 API
 
 Specification for BringAuto fleet backend HTTP API
 
-API version: 3.1.0
+API version: 3.4.3
 Contact: fleet@bringauto.com
 */
 
@@ -414,7 +414,7 @@ func (a *OrderAPIService) GetCarOrdersExecute(r ApiGetCarOrdersRequest) ([]Order
 	localVarFormParams := url.Values{}
 
 	if r.since != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "since", r.since, "")
+		parameterAddToHeaderOrQuery(localVarQueryParams, "since", r.since, "form", "")
 	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
@@ -758,7 +758,7 @@ func (a *OrderAPIService) GetOrdersExecute(r ApiGetOrdersRequest) ([]Order, *htt
 	localVarFormParams := url.Values{}
 
 	if r.since != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "since", r.since, "")
+		parameterAddToHeaderOrQuery(localVarQueryParams, "since", r.since, "form", "")
 	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}

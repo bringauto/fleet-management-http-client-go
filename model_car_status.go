@@ -3,7 +3,7 @@ BringAuto Fleet Management v2 API
 
 Specification for BringAuto fleet backend HTTP API
 
-API version: 3.1.0
+API version: 3.4.3
 Contact: fleet@bringauto.com
 */
 
@@ -26,7 +26,6 @@ const (
 	OUT_OF_ORDER CarStatus = "out_of_order"
 	DRIVING CarStatus = "driving"
 	IN_STOP CarStatus = "in_stop"
-	PAUSED_BY_PHONE CarStatus = "paused_by_phone"
 	PAUSED_BY_OBSTACLE CarStatus = "paused_by_obstacle"
 	PAUSED_BY_BUTTON CarStatus = "paused_by_button"
 )
@@ -38,7 +37,6 @@ var AllowedCarStatusEnumValues = []CarStatus{
 	"out_of_order",
 	"driving",
 	"in_stop",
-	"paused_by_phone",
 	"paused_by_obstacle",
 	"paused_by_button",
 }

@@ -3,7 +3,7 @@ BringAuto Fleet Management v2 API
 
 Specification for BringAuto fleet backend HTTP API
 
-API version: 3.1.0
+API version: 3.4.3
 Contact: fleet@bringauto.com
 */
 
@@ -242,16 +242,16 @@ func (a *CarStateAPIService) GetAllCarStatesExecute(r ApiGetAllCarStatesRequest)
 	localVarFormParams := url.Values{}
 
 	if r.wait != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "wait", r.wait, "")
+		parameterAddToHeaderOrQuery(localVarQueryParams, "wait", r.wait, "form", "")
 	} else {
 		var defaultValue bool = false
 		r.wait = &defaultValue
 	}
 	if r.since != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "since", r.since, "")
+		parameterAddToHeaderOrQuery(localVarQueryParams, "since", r.since, "form", "")
 	}
 	if r.lastN != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "lastN", r.lastN, "")
+		parameterAddToHeaderOrQuery(localVarQueryParams, "lastN", r.lastN, "form", "")
 	} else {
 		var defaultValue int32 = 0
 		r.lastN = &defaultValue
@@ -423,16 +423,16 @@ func (a *CarStateAPIService) GetCarStatesExecute(r ApiGetCarStatesRequest) ([]Ca
 	localVarFormParams := url.Values{}
 
 	if r.wait != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "wait", r.wait, "")
+		parameterAddToHeaderOrQuery(localVarQueryParams, "wait", r.wait, "form", "")
 	} else {
 		var defaultValue bool = false
 		r.wait = &defaultValue
 	}
 	if r.since != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "since", r.since, "")
+		parameterAddToHeaderOrQuery(localVarQueryParams, "since", r.since, "form", "")
 	}
 	if r.lastN != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "lastN", r.lastN, "")
+		parameterAddToHeaderOrQuery(localVarQueryParams, "lastN", r.lastN, "form", "")
 	} else {
 		var defaultValue int32 = 0
 		r.lastN = &defaultValue
