@@ -3,7 +3,7 @@ BringAuto Fleet Management v2 API
 
 Specification for BringAuto fleet backend HTTP API
 
-API version: 3.1.0
+API version: 3.4.3
 Contact: fleet@bringauto.com
 */
 
@@ -36,7 +36,7 @@ func (r ApiCreateOrderStatesRequest) OrderState(orderState []OrderState) ApiCrea
 	return r
 }
 
-func (r ApiCreateOrderStatesRequest) Execute() (*OrderState, *http.Response, error) {
+func (r ApiCreateOrderStatesRequest) Execute() ([]OrderState, *http.Response, error) {
 	return r.ApiService.CreateOrderStatesExecute(r)
 }
 
@@ -54,13 +54,13 @@ func (a *OrderStateAPIService) CreateOrderStates(ctx context.Context) ApiCreateO
 }
 
 // Execute executes the request
-//  @return OrderState
-func (a *OrderStateAPIService) CreateOrderStatesExecute(r ApiCreateOrderStatesRequest) (*OrderState, *http.Response, error) {
+//  @return []OrderState
+func (a *OrderStateAPIService) CreateOrderStatesExecute(r ApiCreateOrderStatesRequest) ([]OrderState, *http.Response, error) {
 	var (
 		localVarHTTPMethod   = http.MethodPost
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		localVarReturnValue  *OrderState
+		localVarReturnValue  []OrderState
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "OrderStateAPIService.CreateOrderStates")
@@ -271,22 +271,22 @@ func (a *OrderStateAPIService) GetAllOrderStatesExecute(r ApiGetAllOrderStatesRe
 	localVarFormParams := url.Values{}
 
 	if r.wait != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "wait", r.wait, "")
+		parameterAddToHeaderOrQuery(localVarQueryParams, "wait", r.wait, "form", "")
 	} else {
 		var defaultValue bool = false
 		r.wait = &defaultValue
 	}
 	if r.since != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "since", r.since, "")
+		parameterAddToHeaderOrQuery(localVarQueryParams, "since", r.since, "form", "")
 	}
 	if r.lastN != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "lastN", r.lastN, "")
+		parameterAddToHeaderOrQuery(localVarQueryParams, "lastN", r.lastN, "form", "")
 	} else {
 		var defaultValue int32 = 0
 		r.lastN = &defaultValue
 	}
 	if r.carId != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "carId", r.carId, "")
+		parameterAddToHeaderOrQuery(localVarQueryParams, "carId", r.carId, "form", "")
 	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
@@ -455,16 +455,16 @@ func (a *OrderStateAPIService) GetOrderStatesExecute(r ApiGetOrderStatesRequest)
 	localVarFormParams := url.Values{}
 
 	if r.wait != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "wait", r.wait, "")
+		parameterAddToHeaderOrQuery(localVarQueryParams, "wait", r.wait, "form", "")
 	} else {
 		var defaultValue bool = false
 		r.wait = &defaultValue
 	}
 	if r.since != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "since", r.since, "")
+		parameterAddToHeaderOrQuery(localVarQueryParams, "since", r.since, "form", "")
 	}
 	if r.lastN != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "lastN", r.lastN, "")
+		parameterAddToHeaderOrQuery(localVarQueryParams, "lastN", r.lastN, "form", "")
 	} else {
 		var defaultValue int32 = 0
 		r.lastN = &defaultValue

@@ -3,7 +3,7 @@ BringAuto Fleet Management v2 API
 
 Specification for BringAuto fleet backend HTTP API
 
-API version: 3.1.0
+API version: 3.4.3
 Contact: fleet@bringauto.com
 */
 
@@ -29,6 +29,7 @@ type Car struct {
 	DefaultRouteId *int32 `json:"defaultRouteId,omitempty"`
 	UnderTest *bool `json:"underTest,omitempty"`
 	LastState *CarState `json:"lastState,omitempty"`
+	LastActionState *CarActionState `json:"lastActionState,omitempty"`
 }
 
 type _Car Car
@@ -257,6 +258,38 @@ func (o *Car) SetLastState(v CarState) {
 	o.LastState = &v
 }
 
+// GetLastActionState returns the LastActionState field value if set, zero value otherwise.
+func (o *Car) GetLastActionState() CarActionState {
+	if o == nil || IsNil(o.LastActionState) {
+		var ret CarActionState
+		return ret
+	}
+	return *o.LastActionState
+}
+
+// GetLastActionStateOk returns a tuple with the LastActionState field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *Car) GetLastActionStateOk() (*CarActionState, bool) {
+	if o == nil || IsNil(o.LastActionState) {
+		return nil, false
+	}
+	return o.LastActionState, true
+}
+
+// HasLastActionState returns a boolean if a field has been set.
+func (o *Car) HasLastActionState() bool {
+	if o != nil && !IsNil(o.LastActionState) {
+		return true
+	}
+
+	return false
+}
+
+// SetLastActionState gets a reference to the given CarActionState and assigns it to the LastActionState field.
+func (o *Car) SetLastActionState(v CarActionState) {
+	o.LastActionState = &v
+}
+
 func (o Car) MarshalJSON() ([]byte, error) {
 	toSerialize,err := o.ToMap()
 	if err != nil {
@@ -281,6 +314,9 @@ func (o Car) ToMap() (map[string]interface{}, error) {
 	}
 	if !IsNil(o.LastState) {
 		toSerialize["lastState"] = o.LastState
+	}
+	if !IsNil(o.LastActionState) {
+		toSerialize["lastActionState"] = o.LastActionState
 	}
 	return toSerialize, nil
 }

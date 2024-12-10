@@ -3,7 +3,7 @@ BringAuto Fleet Management v2 API
 
 Specification for BringAuto fleet backend HTTP API
 
-API version: 3.1.0
+API version: 3.4.3
 Contact: fleet@bringauto.com
 */
 
@@ -25,7 +25,7 @@ type RouteVisualization struct {
 	Id *int32 `json:"id,omitempty"`
 	RouteId int32 `json:"routeId"`
 	// Color in hexadecimal format.
-	Hexcolor *string `json:"hexcolor,omitempty"`
+	Hexcolor *string `json:"hexcolor,omitempty" validate:"regexp=^#([A-Fa-f0-9]{6}|[A-Fa-f0-9]{3})$"`
 	Points []GNSSPosition `json:"points"`
 }
 

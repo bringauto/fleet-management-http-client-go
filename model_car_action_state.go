@@ -17,41 +17,41 @@ import (
 	"fmt"
 )
 
-// checks if the OrderState type satisfies the MappedNullable interface at compile time
-var _ MappedNullable = &OrderState{}
+// checks if the CarActionState type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &CarActionState{}
 
-// OrderState Order state object structure.
-type OrderState struct {
+// CarActionState Car Action State object structure
+type CarActionState struct {
 	Id *int32 `json:"id,omitempty"`
-	Status OrderStatus `json:"status"`
-	OrderId int32 `json:"orderId"`
+	CarId int32 `json:"carId"`
 	// A Unix timestamp in milliseconds. The timestamp is used to determine the time of creation of an object.
 	Timestamp *int64 `json:"timestamp,omitempty"`
+	ActionStatus CarActionStatus `json:"actionStatus"`
 }
 
-type _OrderState OrderState
+type _CarActionState CarActionState
 
-// NewOrderState instantiates a new OrderState object
+// NewCarActionState instantiates a new CarActionState object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewOrderState(status OrderStatus, orderId int32) *OrderState {
-	this := OrderState{}
-	this.Status = status
-	this.OrderId = orderId
+func NewCarActionState(carId int32, actionStatus CarActionStatus) *CarActionState {
+	this := CarActionState{}
+	this.CarId = carId
+	this.ActionStatus = actionStatus
 	return &this
 }
 
-// NewOrderStateWithDefaults instantiates a new OrderState object
+// NewCarActionStateWithDefaults instantiates a new CarActionState object
 // This constructor will only assign default values to properties that have it defined,
 // but it doesn't guarantee that properties required by API are set
-func NewOrderStateWithDefaults() *OrderState {
-	this := OrderState{}
+func NewCarActionStateWithDefaults() *CarActionState {
+	this := CarActionState{}
 	return &this
 }
 
 // GetId returns the Id field value if set, zero value otherwise.
-func (o *OrderState) GetId() int32 {
+func (o *CarActionState) GetId() int32 {
 	if o == nil || IsNil(o.Id) {
 		var ret int32
 		return ret
@@ -61,7 +61,7 @@ func (o *OrderState) GetId() int32 {
 
 // GetIdOk returns a tuple with the Id field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *OrderState) GetIdOk() (*int32, bool) {
+func (o *CarActionState) GetIdOk() (*int32, bool) {
 	if o == nil || IsNil(o.Id) {
 		return nil, false
 	}
@@ -69,7 +69,7 @@ func (o *OrderState) GetIdOk() (*int32, bool) {
 }
 
 // HasId returns a boolean if a field has been set.
-func (o *OrderState) HasId() bool {
+func (o *CarActionState) HasId() bool {
 	if o != nil && !IsNil(o.Id) {
 		return true
 	}
@@ -78,60 +78,36 @@ func (o *OrderState) HasId() bool {
 }
 
 // SetId gets a reference to the given int32 and assigns it to the Id field.
-func (o *OrderState) SetId(v int32) {
+func (o *CarActionState) SetId(v int32) {
 	o.Id = &v
 }
 
-// GetStatus returns the Status field value
-func (o *OrderState) GetStatus() OrderStatus {
-	if o == nil {
-		var ret OrderStatus
-		return ret
-	}
-
-	return o.Status
-}
-
-// GetStatusOk returns a tuple with the Status field value
-// and a boolean to check if the value has been set.
-func (o *OrderState) GetStatusOk() (*OrderStatus, bool) {
-	if o == nil {
-		return nil, false
-	}
-	return &o.Status, true
-}
-
-// SetStatus sets field value
-func (o *OrderState) SetStatus(v OrderStatus) {
-	o.Status = v
-}
-
-// GetOrderId returns the OrderId field value
-func (o *OrderState) GetOrderId() int32 {
+// GetCarId returns the CarId field value
+func (o *CarActionState) GetCarId() int32 {
 	if o == nil {
 		var ret int32
 		return ret
 	}
 
-	return o.OrderId
+	return o.CarId
 }
 
-// GetOrderIdOk returns a tuple with the OrderId field value
+// GetCarIdOk returns a tuple with the CarId field value
 // and a boolean to check if the value has been set.
-func (o *OrderState) GetOrderIdOk() (*int32, bool) {
+func (o *CarActionState) GetCarIdOk() (*int32, bool) {
 	if o == nil {
 		return nil, false
 	}
-	return &o.OrderId, true
+	return &o.CarId, true
 }
 
-// SetOrderId sets field value
-func (o *OrderState) SetOrderId(v int32) {
-	o.OrderId = v
+// SetCarId sets field value
+func (o *CarActionState) SetCarId(v int32) {
+	o.CarId = v
 }
 
 // GetTimestamp returns the Timestamp field value if set, zero value otherwise.
-func (o *OrderState) GetTimestamp() int64 {
+func (o *CarActionState) GetTimestamp() int64 {
 	if o == nil || IsNil(o.Timestamp) {
 		var ret int64
 		return ret
@@ -141,7 +117,7 @@ func (o *OrderState) GetTimestamp() int64 {
 
 // GetTimestampOk returns a tuple with the Timestamp field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *OrderState) GetTimestampOk() (*int64, bool) {
+func (o *CarActionState) GetTimestampOk() (*int64, bool) {
 	if o == nil || IsNil(o.Timestamp) {
 		return nil, false
 	}
@@ -149,7 +125,7 @@ func (o *OrderState) GetTimestampOk() (*int64, bool) {
 }
 
 // HasTimestamp returns a boolean if a field has been set.
-func (o *OrderState) HasTimestamp() bool {
+func (o *CarActionState) HasTimestamp() bool {
 	if o != nil && !IsNil(o.Timestamp) {
 		return true
 	}
@@ -158,11 +134,35 @@ func (o *OrderState) HasTimestamp() bool {
 }
 
 // SetTimestamp gets a reference to the given int64 and assigns it to the Timestamp field.
-func (o *OrderState) SetTimestamp(v int64) {
+func (o *CarActionState) SetTimestamp(v int64) {
 	o.Timestamp = &v
 }
 
-func (o OrderState) MarshalJSON() ([]byte, error) {
+// GetActionStatus returns the ActionStatus field value
+func (o *CarActionState) GetActionStatus() CarActionStatus {
+	if o == nil {
+		var ret CarActionStatus
+		return ret
+	}
+
+	return o.ActionStatus
+}
+
+// GetActionStatusOk returns a tuple with the ActionStatus field value
+// and a boolean to check if the value has been set.
+func (o *CarActionState) GetActionStatusOk() (*CarActionStatus, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.ActionStatus, true
+}
+
+// SetActionStatus sets field value
+func (o *CarActionState) SetActionStatus(v CarActionStatus) {
+	o.ActionStatus = v
+}
+
+func (o CarActionState) MarshalJSON() ([]byte, error) {
 	toSerialize,err := o.ToMap()
 	if err != nil {
 		return []byte{}, err
@@ -170,26 +170,26 @@ func (o OrderState) MarshalJSON() ([]byte, error) {
 	return json.Marshal(toSerialize)
 }
 
-func (o OrderState) ToMap() (map[string]interface{}, error) {
+func (o CarActionState) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
 	if !IsNil(o.Id) {
 		toSerialize["id"] = o.Id
 	}
-	toSerialize["status"] = o.Status
-	toSerialize["orderId"] = o.OrderId
+	toSerialize["carId"] = o.CarId
 	if !IsNil(o.Timestamp) {
 		toSerialize["timestamp"] = o.Timestamp
 	}
+	toSerialize["actionStatus"] = o.ActionStatus
 	return toSerialize, nil
 }
 
-func (o *OrderState) UnmarshalJSON(data []byte) (err error) {
+func (o *CarActionState) UnmarshalJSON(data []byte) (err error) {
 	// This validates that all required properties are included in the JSON object
 	// by unmarshalling the object into a generic map with string keys and checking
 	// that every required field exists as a key in the generic map.
 	requiredProperties := []string{
-		"status",
-		"orderId",
+		"carId",
+		"actionStatus",
 	}
 
 	allProperties := make(map[string]interface{})
@@ -206,53 +206,53 @@ func (o *OrderState) UnmarshalJSON(data []byte) (err error) {
 		}
 	}
 
-	varOrderState := _OrderState{}
+	varCarActionState := _CarActionState{}
 
 	decoder := json.NewDecoder(bytes.NewReader(data))
 	decoder.DisallowUnknownFields()
-	err = decoder.Decode(&varOrderState)
+	err = decoder.Decode(&varCarActionState)
 
 	if err != nil {
 		return err
 	}
 
-	*o = OrderState(varOrderState)
+	*o = CarActionState(varCarActionState)
 
 	return err
 }
 
-type NullableOrderState struct {
-	value *OrderState
+type NullableCarActionState struct {
+	value *CarActionState
 	isSet bool
 }
 
-func (v NullableOrderState) Get() *OrderState {
+func (v NullableCarActionState) Get() *CarActionState {
 	return v.value
 }
 
-func (v *NullableOrderState) Set(val *OrderState) {
+func (v *NullableCarActionState) Set(val *CarActionState) {
 	v.value = val
 	v.isSet = true
 }
 
-func (v NullableOrderState) IsSet() bool {
+func (v NullableCarActionState) IsSet() bool {
 	return v.isSet
 }
 
-func (v *NullableOrderState) Unset() {
+func (v *NullableCarActionState) Unset() {
 	v.value = nil
 	v.isSet = false
 }
 
-func NewNullableOrderState(val *OrderState) *NullableOrderState {
-	return &NullableOrderState{value: val, isSet: true}
+func NewNullableCarActionState(val *CarActionState) *NullableCarActionState {
+	return &NullableCarActionState{value: val, isSet: true}
 }
 
-func (v NullableOrderState) MarshalJSON() ([]byte, error) {
+func (v NullableCarActionState) MarshalJSON() ([]byte, error) {
 	return json.Marshal(v.value)
 }
 
-func (v *NullableOrderState) UnmarshalJSON(src []byte) error {
+func (v *NullableCarActionState) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }

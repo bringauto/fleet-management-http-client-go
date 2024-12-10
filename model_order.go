@@ -3,7 +3,7 @@ BringAuto Fleet Management v2 API
 
 Specification for BringAuto fleet backend HTTP API
 
-API version: 3.1.0
+API version: 3.4.3
 Contact: fleet@bringauto.com
 */
 
@@ -24,7 +24,7 @@ var _ MappedNullable = &Order{}
 type Order struct {
 	Id *int32 `json:"id,omitempty"`
 	// Priority (low, normal, high)
-	Priority *string `json:"priority,omitempty"`
+	Priority *string `json:"priority,omitempty" validate:"regexp=^(low|normal|high)$"`
 	// A Unix timestamp in milliseconds. The timestamp is used to determine the time of creation of an object.
 	Timestamp *int64 `json:"timestamp,omitempty"`
 	CarId int32 `json:"carId"`

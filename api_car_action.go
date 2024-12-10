@@ -21,382 +21,243 @@ import (
 )
 
 
-// PlatformHWAPIService PlatformHWAPI service
-type PlatformHWAPIService service
+// CarActionAPIService CarActionAPI service
+type CarActionAPIService service
 
-type ApiCreateHwsRequest struct {
+type ApiGetCarActionStatesRequest struct {
 	ctx context.Context
-	ApiService *PlatformHWAPIService
-	platformHW *[]PlatformHW
+	ApiService *CarActionAPIService
+	carId int32
+	wait *bool
+	since *int64
+	lastN *int32
 }
 
-// A list of Platform HW models in JSON format.
-func (r ApiCreateHwsRequest) PlatformHW(platformHW []PlatformHW) ApiCreateHwsRequest {
-	r.platformHW = &platformHW
+// Applies to GET methods when no objects would be returned at the moment of request. If wait&#x3D;true, \\ the request will wait for the next object to be created and then returns it. If wait&#x3D;False or unspecified, the request will return \\ an empty list.
+func (r ApiGetCarActionStatesRequest) Wait(wait bool) ApiGetCarActionStatesRequest {
+	r.wait = &wait
 	return r
 }
 
-func (r ApiCreateHwsRequest) Execute() ([]PlatformHW, *http.Response, error) {
-	return r.ApiService.CreateHwsExecute(r)
+// A Unix timestamp in milliseconds. If specified, only objects created at the time or later will be returned. If unspecified, all objects are returned (since is set to 0 in that case).
+func (r ApiGetCarActionStatesRequest) Since(since int64) ApiGetCarActionStatesRequest {
+	r.since = &since
+	return r
+}
+
+// If specified, only the last N objects will be returned. If unspecified, all objects are returned. \\ If some states have identical timestamps and they all do not fit into the maximum N states, only those with higher IDs are returned. If value smaller than 1 is provided, this filtering is ignored.
+func (r ApiGetCarActionStatesRequest) LastN(lastN int32) ApiGetCarActionStatesRequest {
+	r.lastN = &lastN
+	return r
+}
+
+func (r ApiGetCarActionStatesRequest) Execute() ([]CarActionState, *http.Response, error) {
+	return r.ApiService.GetCarActionStatesExecute(r)
 }
 
 /*
-CreateHws Create new Platform HW objects.
+GetCarActionStates Finds car action states for a Car with given carId.
 
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @return ApiCreateHwsRequest
+ @param carId ID of the Car for which to return the action states.
+ @return ApiGetCarActionStatesRequest
 */
-func (a *PlatformHWAPIService) CreateHws(ctx context.Context) ApiCreateHwsRequest {
-	return ApiCreateHwsRequest{
+func (a *CarActionAPIService) GetCarActionStates(ctx context.Context, carId int32) ApiGetCarActionStatesRequest {
+	return ApiGetCarActionStatesRequest{
 		ApiService: a,
 		ctx: ctx,
+		carId: carId,
 	}
 }
 
 // Execute executes the request
-//  @return []PlatformHW
-func (a *PlatformHWAPIService) CreateHwsExecute(r ApiCreateHwsRequest) ([]PlatformHW, *http.Response, error) {
+//  @return []CarActionState
+func (a *CarActionAPIService) GetCarActionStatesExecute(r ApiGetCarActionStatesRequest) ([]CarActionState, *http.Response, error) {
+	var (
+		localVarHTTPMethod   = http.MethodGet
+		localVarPostBody     interface{}
+		formFiles            []formFile
+		localVarReturnValue  []CarActionState
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "CarActionAPIService.GetCarActionStates")
+	if err != nil {
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/action/car/{carId}"
+	localVarPath = strings.Replace(localVarPath, "{"+"carId"+"}", url.PathEscape(parameterValueToString(r.carId, "carId")), -1)
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+
+	if r.wait != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "wait", r.wait, "form", "")
+	} else {
+		var defaultValue bool = false
+		r.wait = &defaultValue
+	}
+	if r.since != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "since", r.since, "form", "")
+	}
+	if r.lastN != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "lastN", r.lastN, "form", "")
+	} else {
+		var defaultValue int32 = 0
+		r.lastN = &defaultValue
+	}
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	if r.ctx != nil {
+		// API Key Authentication
+		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
+			if apiKey, ok := auth["APIKeyAuth"]; ok {
+				var key string
+				if apiKey.Prefix != "" {
+					key = apiKey.Prefix + " " + apiKey.Key
+				} else {
+					key = apiKey.Key
+				}
+				localVarQueryParams.Add("api_key", key)
+			}
+		}
+	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		if localVarHTTPResponse.StatusCode == 400 {
+			var v Error
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarReturnValue, localVarHTTPResponse, newErr
+			}
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		if localVarHTTPResponse.StatusCode == 401 {
+			var v Error
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarReturnValue, localVarHTTPResponse, newErr
+			}
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		if localVarHTTPResponse.StatusCode == 404 {
+			var v Error
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarReturnValue, localVarHTTPResponse, newErr
+			}
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+			var v Error
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarReturnValue, localVarHTTPResponse, newErr
+			}
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
+type ApiPauseCarRequest struct {
+	ctx context.Context
+	ApiService *CarActionAPIService
+	carId int32
+}
+
+func (r ApiPauseCarRequest) Execute() ([]CarActionState, *http.Response, error) {
+	return r.ApiService.PauseCarExecute(r)
+}
+
+/*
+PauseCar Finds and pauses a Car with given carId, if not already paused. Sets car action status to PAUSED if it is not in PAUSED action status already.
+
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param carId ID of the Car which should be paused.
+ @return ApiPauseCarRequest
+*/
+func (a *CarActionAPIService) PauseCar(ctx context.Context, carId int32) ApiPauseCarRequest {
+	return ApiPauseCarRequest{
+		ApiService: a,
+		ctx: ctx,
+		carId: carId,
+	}
+}
+
+// Execute executes the request
+//  @return []CarActionState
+func (a *CarActionAPIService) PauseCarExecute(r ApiPauseCarRequest) ([]CarActionState, *http.Response, error) {
 	var (
 		localVarHTTPMethod   = http.MethodPost
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		localVarReturnValue  []PlatformHW
+		localVarReturnValue  []CarActionState
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "PlatformHWAPIService.CreateHws")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "CarActionAPIService.PauseCar")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/platformhw"
-
-	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := url.Values{}
-	localVarFormParams := url.Values{}
-	if r.platformHW == nil {
-		return localVarReturnValue, nil, reportError("platformHW is required and must be specified")
-	}
-
-	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{"application/json"}
-
-	// set Content-Type header
-	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
-	if localVarHTTPContentType != "" {
-		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
-	}
-
-	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
-
-	// set Accept header
-	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
-	if localVarHTTPHeaderAccept != "" {
-		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
-	}
-	// body params
-	localVarPostBody = r.platformHW
-	if r.ctx != nil {
-		// API Key Authentication
-		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
-			if apiKey, ok := auth["APIKeyAuth"]; ok {
-				var key string
-				if apiKey.Prefix != "" {
-					key = apiKey.Prefix + " " + apiKey.Key
-				} else {
-					key = apiKey.Key
-				}
-				localVarQueryParams.Add("api_key", key)
-			}
-		}
-	}
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
-	if err != nil {
-		return localVarReturnValue, nil, err
-	}
-
-	localVarHTTPResponse, err := a.client.callAPI(req)
-	if err != nil || localVarHTTPResponse == nil {
-		return localVarReturnValue, localVarHTTPResponse, err
-	}
-
-	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
-	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
-	if err != nil {
-		return localVarReturnValue, localVarHTTPResponse, err
-	}
-
-	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: localVarHTTPResponse.Status,
-		}
-		if localVarHTTPResponse.StatusCode == 400 {
-			var v Error
-			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-			if err != nil {
-				newErr.error = err.Error()
-				return localVarReturnValue, localVarHTTPResponse, newErr
-			}
-					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-					newErr.model = v
-			return localVarReturnValue, localVarHTTPResponse, newErr
-		}
-		if localVarHTTPResponse.StatusCode == 401 {
-			var v Error
-			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-			if err != nil {
-				newErr.error = err.Error()
-				return localVarReturnValue, localVarHTTPResponse, newErr
-			}
-					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-					newErr.model = v
-			return localVarReturnValue, localVarHTTPResponse, newErr
-		}
-		if localVarHTTPResponse.StatusCode == 403 {
-			var v Error
-			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-			if err != nil {
-				newErr.error = err.Error()
-				return localVarReturnValue, localVarHTTPResponse, newErr
-			}
-					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-					newErr.model = v
-			return localVarReturnValue, localVarHTTPResponse, newErr
-		}
-			var v Error
-			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-			if err != nil {
-				newErr.error = err.Error()
-				return localVarReturnValue, localVarHTTPResponse, newErr
-			}
-					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-					newErr.model = v
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-	if err != nil {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: err.Error(),
-		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	return localVarReturnValue, localVarHTTPResponse, nil
-}
-
-type ApiDeleteHwRequest struct {
-	ctx context.Context
-	ApiService *PlatformHWAPIService
-	platformHwId int32
-}
-
-func (r ApiDeleteHwRequest) Execute() (*http.Response, error) {
-	return r.ApiService.DeleteHwExecute(r)
-}
-
-/*
-DeleteHw Delete Platform HW with the given ID.
-
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param platformHwId ID of Platform HW to delete.
- @return ApiDeleteHwRequest
-*/
-func (a *PlatformHWAPIService) DeleteHw(ctx context.Context, platformHwId int32) ApiDeleteHwRequest {
-	return ApiDeleteHwRequest{
-		ApiService: a,
-		ctx: ctx,
-		platformHwId: platformHwId,
-	}
-}
-
-// Execute executes the request
-func (a *PlatformHWAPIService) DeleteHwExecute(r ApiDeleteHwRequest) (*http.Response, error) {
-	var (
-		localVarHTTPMethod   = http.MethodDelete
-		localVarPostBody     interface{}
-		formFiles            []formFile
-	)
-
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "PlatformHWAPIService.DeleteHw")
-	if err != nil {
-		return nil, &GenericOpenAPIError{error: err.Error()}
-	}
-
-	localVarPath := localBasePath + "/platformhw/{platformHwId}"
-	localVarPath = strings.Replace(localVarPath, "{"+"platformHwId"+"}", url.PathEscape(parameterValueToString(r.platformHwId, "platformHwId")), -1)
-
-	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := url.Values{}
-	localVarFormParams := url.Values{}
-
-	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{}
-
-	// set Content-Type header
-	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
-	if localVarHTTPContentType != "" {
-		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
-	}
-
-	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"text/plain", "application/json"}
-
-	// set Accept header
-	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
-	if localVarHTTPHeaderAccept != "" {
-		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
-	}
-	if r.ctx != nil {
-		// API Key Authentication
-		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
-			if apiKey, ok := auth["APIKeyAuth"]; ok {
-				var key string
-				if apiKey.Prefix != "" {
-					key = apiKey.Prefix + " " + apiKey.Key
-				} else {
-					key = apiKey.Key
-				}
-				localVarQueryParams.Add("api_key", key)
-			}
-		}
-	}
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
-	if err != nil {
-		return nil, err
-	}
-
-	localVarHTTPResponse, err := a.client.callAPI(req)
-	if err != nil || localVarHTTPResponse == nil {
-		return localVarHTTPResponse, err
-	}
-
-	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
-	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
-	if err != nil {
-		return localVarHTTPResponse, err
-	}
-
-	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: localVarHTTPResponse.Status,
-		}
-		if localVarHTTPResponse.StatusCode == 400 {
-			var v Error
-			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-			if err != nil {
-				newErr.error = err.Error()
-				return localVarHTTPResponse, newErr
-			}
-					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-					newErr.model = v
-			return localVarHTTPResponse, newErr
-		}
-		if localVarHTTPResponse.StatusCode == 401 {
-			var v Error
-			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-			if err != nil {
-				newErr.error = err.Error()
-				return localVarHTTPResponse, newErr
-			}
-					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-					newErr.model = v
-			return localVarHTTPResponse, newErr
-		}
-		if localVarHTTPResponse.StatusCode == 403 {
-			var v Error
-			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-			if err != nil {
-				newErr.error = err.Error()
-				return localVarHTTPResponse, newErr
-			}
-					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-					newErr.model = v
-			return localVarHTTPResponse, newErr
-		}
-		if localVarHTTPResponse.StatusCode == 404 {
-			var v Error
-			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-			if err != nil {
-				newErr.error = err.Error()
-				return localVarHTTPResponse, newErr
-			}
-					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-					newErr.model = v
-			return localVarHTTPResponse, newErr
-		}
-		if localVarHTTPResponse.StatusCode == 405 {
-			var v Error
-			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-			if err != nil {
-				newErr.error = err.Error()
-				return localVarHTTPResponse, newErr
-			}
-					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-					newErr.model = v
-			return localVarHTTPResponse, newErr
-		}
-			var v Error
-			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-			if err != nil {
-				newErr.error = err.Error()
-				return localVarHTTPResponse, newErr
-			}
-					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-					newErr.model = v
-		return localVarHTTPResponse, newErr
-	}
-
-	return localVarHTTPResponse, nil
-}
-
-type ApiGetHwRequest struct {
-	ctx context.Context
-	ApiService *PlatformHWAPIService
-	platformHwId int32
-}
-
-func (r ApiGetHwRequest) Execute() (*PlatformHW, *http.Response, error) {
-	return r.ApiService.GetHwExecute(r)
-}
-
-/*
-GetHw Find Platform HW with the given ID.
-
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param platformHwId ID of the Platform HW to return.
- @return ApiGetHwRequest
-*/
-func (a *PlatformHWAPIService) GetHw(ctx context.Context, platformHwId int32) ApiGetHwRequest {
-	return ApiGetHwRequest{
-		ApiService: a,
-		ctx: ctx,
-		platformHwId: platformHwId,
-	}
-}
-
-// Execute executes the request
-//  @return PlatformHW
-func (a *PlatformHWAPIService) GetHwExecute(r ApiGetHwRequest) (*PlatformHW, *http.Response, error) {
-	var (
-		localVarHTTPMethod   = http.MethodGet
-		localVarPostBody     interface{}
-		formFiles            []formFile
-		localVarReturnValue  *PlatformHW
-	)
-
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "PlatformHWAPIService.GetHw")
-	if err != nil {
-		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
-	}
-
-	localVarPath := localBasePath + "/platformhw/{platformHwId}"
-	localVarPath = strings.Replace(localVarPath, "{"+"platformHwId"+"}", url.PathEscape(parameterValueToString(r.platformHwId, "platformHwId")), -1)
+	localVarPath := localBasePath + "/action/car/{carId}/pause"
+	localVarPath = strings.Replace(localVarPath, "{"+"carId"+"}", url.PathEscape(parameterValueToString(r.carId, "carId")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -467,17 +328,6 @@ func (a *PlatformHWAPIService) GetHwExecute(r ApiGetHwRequest) (*PlatformHW, *ht
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 401 {
-			var v Error
-			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-			if err != nil {
-				newErr.error = err.Error()
-				return localVarReturnValue, localVarHTTPResponse, newErr
-			}
-					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-					newErr.model = v
-			return localVarReturnValue, localVarHTTPResponse, newErr
-		}
-		if localVarHTTPResponse.StatusCode == 403 {
 			var v Error
 			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 			if err != nil {
@@ -522,44 +372,48 @@ func (a *PlatformHWAPIService) GetHwExecute(r ApiGetHwRequest) (*PlatformHW, *ht
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
-type ApiGetHwsRequest struct {
+type ApiUnpauseCarRequest struct {
 	ctx context.Context
-	ApiService *PlatformHWAPIService
+	ApiService *CarActionAPIService
+	carId int32
 }
 
-func (r ApiGetHwsRequest) Execute() ([]PlatformHW, *http.Response, error) {
-	return r.ApiService.GetHwsExecute(r)
+func (r ApiUnpauseCarRequest) Execute() ([]CarActionState, *http.Response, error) {
+	return r.ApiService.UnpauseCarExecute(r)
 }
 
 /*
-GetHws Find and return all existing Platform HW.
+UnpauseCar Finds and unpauses a Car with given carId, if paused. Sets car action status to NORMAL only if it is in PAUSED action status.
 
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @return ApiGetHwsRequest
+ @param carId ID of the Car which should be unpaused.
+ @return ApiUnpauseCarRequest
 */
-func (a *PlatformHWAPIService) GetHws(ctx context.Context) ApiGetHwsRequest {
-	return ApiGetHwsRequest{
+func (a *CarActionAPIService) UnpauseCar(ctx context.Context, carId int32) ApiUnpauseCarRequest {
+	return ApiUnpauseCarRequest{
 		ApiService: a,
 		ctx: ctx,
+		carId: carId,
 	}
 }
 
 // Execute executes the request
-//  @return []PlatformHW
-func (a *PlatformHWAPIService) GetHwsExecute(r ApiGetHwsRequest) ([]PlatformHW, *http.Response, error) {
+//  @return []CarActionState
+func (a *CarActionAPIService) UnpauseCarExecute(r ApiUnpauseCarRequest) ([]CarActionState, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = http.MethodGet
+		localVarHTTPMethod   = http.MethodPost
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		localVarReturnValue  []PlatformHW
+		localVarReturnValue  []CarActionState
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "PlatformHWAPIService.GetHws")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "CarActionAPIService.UnpauseCar")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/platformhw"
+	localVarPath := localBasePath + "/action/car/{carId}/unpause"
+	localVarPath = strings.Replace(localVarPath, "{"+"carId"+"}", url.PathEscape(parameterValueToString(r.carId, "carId")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -618,6 +472,17 @@ func (a *PlatformHWAPIService) GetHwsExecute(r ApiGetHwsRequest) ([]PlatformHW, 
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		if localVarHTTPResponse.StatusCode == 400 {
+			var v Error
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarReturnValue, localVarHTTPResponse, newErr
+			}
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
 		if localVarHTTPResponse.StatusCode == 401 {
 			var v Error
 			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
@@ -629,7 +494,7 @@ func (a *PlatformHWAPIService) GetHwsExecute(r ApiGetHwsRequest) ([]PlatformHW, 
 					newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
-		if localVarHTTPResponse.StatusCode == 403 {
+		if localVarHTTPResponse.StatusCode == 404 {
 			var v Error
 			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 			if err != nil {

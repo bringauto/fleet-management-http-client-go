@@ -43,40 +43,51 @@ paths:
       parameters:
       - description: ID of the Car for which to return the action states.
         example: 1
+        explode: false
         in: path
         name: carId
         required: true
         schema:
           format: int32
           type: integer
+        style: simple
       - description: "Applies to GET methods when no objects would be returned at\
           \ the moment of request. If wait=true, \\ the request will wait for the\
           \ next object to be created and then returns it. If wait=False or unspecified,\
           \ the request will return \\ an empty list."
+        explode: true
         in: query
         name: wait
+        required: false
         schema:
           default: false
           type: boolean
+        style: form
       - description: "A Unix timestamp in milliseconds. If specified, only objects\
           \ created at the time or later will be returned. If unspecified, all objects\
           \ are returned (since is set to 0 in that case)."
+        explode: true
         in: query
         name: since
+        required: false
         schema:
           format: int64
           type: integer
+        style: form
       - description: "If specified, only the last N objects will be returned. If unspecified,\
           \ all objects are returned. \\ If some states have identical timestamps\
           \ and they all do not fit into the maximum N states, only those with higher\
           \ IDs are returned. If value smaller than 1 is provided, this filtering\
           \ is ignored."
+        explode: true
         in: query
         name: lastN
+        required: false
         schema:
           default: 0
           format: int32
           type: integer
+        style: form
       responses:
         "200":
           content:
@@ -141,12 +152,14 @@ paths:
       parameters:
       - description: ID of the Car which should be paused.
         example: 1
+        explode: false
         in: path
         name: carId
         required: true
         schema:
           format: int32
           type: integer
+        style: simple
       responses:
         "200":
           content:
@@ -211,12 +224,14 @@ paths:
       parameters:
       - description: ID of the Car which should be unpaused.
         example: 1
+        explode: false
         in: path
         name: carId
         required: true
         schema:
           format: int32
           type: integer
+        style: simple
       responses:
         "200":
           content:
@@ -517,12 +532,14 @@ paths:
       parameters:
       - description: The ID of the Car to be deleted.
         example: 1
+        explode: false
         in: path
         name: carId
         required: true
         schema:
           format: int32
           type: integer
+        style: simple
       responses:
         "200":
           content:
@@ -604,12 +621,14 @@ paths:
       parameters:
       - description: An ID of the Car to be returned.
         example: 1
+        explode: false
         in: path
         name: carId
         required: true
         schema:
           format: int32
           type: integer
+        style: simple
       responses:
         "200":
           content:
@@ -684,30 +703,39 @@ paths:
           \ the moment of request. If wait=true, \\ the request will wait for the\
           \ next object to be created and then returns it. If wait=False or unspecified,\
           \ the request will return \\ an empty list."
+        explode: true
         in: query
         name: wait
+        required: false
         schema:
           default: false
           type: boolean
+        style: form
       - description: "A Unix timestamp in milliseconds. If specified, only objects\
           \ created at the time or later will be returned. If unspecified, all objects\
           \ are returned (since is set to 0 in that case)."
+        explode: true
         in: query
         name: since
+        required: false
         schema:
           format: int64
           type: integer
+        style: form
       - description: "If specified, only the last N objects will be returned. If unspecified,\
           \ all objects are returned. \\ If some states have identical timestamps\
           \ and they all do not fit into the maximum N states, only those with higher\
           \ IDs are returned. If value smaller than 1 is provided, this filtering\
           \ is ignored."
+        explode: true
         in: query
         name: lastN
+        required: false
         schema:
           default: 0
           format: int32
           type: integer
+        style: form
       responses:
         "200":
           content:
@@ -828,38 +856,49 @@ paths:
           \ the moment of request. If wait=true, \\ the request will wait for the\
           \ next object to be created and then returns it. If wait=False or unspecified,\
           \ the request will return \\ an empty list."
+        explode: true
         in: query
         name: wait
+        required: false
         schema:
           default: false
           type: boolean
+        style: form
       - description: "A Unix timestamp in milliseconds. If specified, only objects\
           \ created at the time or later will be returned. If unspecified, all objects\
           \ are returned (since is set to 0 in that case)."
+        explode: true
         in: query
         name: since
+        required: false
         schema:
           format: int64
           type: integer
+        style: form
       - description: "If specified, only the last N objects will be returned. If unspecified,\
           \ all objects are returned. \\ If some states have identical timestamps\
           \ and they all do not fit into the maximum N states, only those with higher\
           \ IDs are returned. If value smaller than 1 is provided, this filtering\
           \ is ignored."
+        explode: true
         in: query
         name: lastN
+        required: false
         schema:
           default: 0
           format: int32
           type: integer
+        style: form
       - description: ID of the Car for which to find the Car States.
         example: 1
+        explode: false
         in: path
         name: carId
         required: true
         schema:
           format: int32
           type: integer
+        style: simple
       responses:
         "200":
           content:
@@ -938,11 +977,14 @@ paths:
       - description: "A Unix timestamp in milliseconds. If specified, only objects\
           \ created at the time or later will be returned. If unspecified, all objects\
           \ are returned (since is set to 0 in that case)."
+        explode: true
         in: query
         name: since
+        required: false
         schema:
           format: int64
           type: integer
+        style: form
       responses:
         "200":
           content:
@@ -1076,19 +1118,24 @@ paths:
       - description: "A Unix timestamp in milliseconds. If specified, only objects\
           \ created at the time or later will be returned. If unspecified, all objects\
           \ are returned (since is set to 0 in that case)."
+        explode: true
         in: query
         name: since
+        required: false
         schema:
           format: int64
           type: integer
+        style: form
       - description: ID of the Car for which Orders shall be returned.
         example: 1
+        explode: false
         in: path
         name: carId
         required: true
         schema:
           format: int32
           type: integer
+        style: simple
       responses:
         "200":
           content:
@@ -1165,20 +1212,24 @@ paths:
       parameters:
       - description: ID of the Car to which the Order is assigned.
         example: 1
+        explode: false
         in: path
         name: carId
         required: true
         schema:
           format: int32
           type: integer
+        style: simple
       - description: ID of the Order to be returned.
         example: 1
+        explode: false
         in: path
         name: orderId
         required: true
         schema:
           format: int32
           type: integer
+        style: simple
       responses:
         "200":
           content:
@@ -1260,20 +1311,24 @@ paths:
       parameters:
       - description: ID of the Car to which the Order is assigned.
         example: 1
+        explode: false
         in: path
         name: carId
         required: true
         schema:
           format: int32
           type: integer
+        style: simple
       - description: ID of the Order to be returned.
         example: 1
+        explode: false
         in: path
         name: orderId
         required: true
         schema:
           format: int32
           type: integer
+        style: simple
       responses:
         "200":
           content:
@@ -1349,36 +1404,48 @@ paths:
           \ the moment of request. If wait=true, \\ the request will wait for the\
           \ next object to be created and then returns it. If wait=False or unspecified,\
           \ the request will return \\ an empty list."
+        explode: true
         in: query
         name: wait
+        required: false
         schema:
           default: false
           type: boolean
+        style: form
       - description: "A Unix timestamp in milliseconds. If specified, only objects\
           \ created at the time or later will be returned. If unspecified, all objects\
           \ are returned (since is set to 0 in that case)."
+        explode: true
         in: query
         name: since
+        required: false
         schema:
           format: int64
           type: integer
+        style: form
       - description: "If specified, only the last N objects will be returned. If unspecified,\
           \ all objects are returned. \\ If some states have identical timestamps\
           \ and they all do not fit into the maximum N states, only those with higher\
           \ IDs are returned. If value smaller than 1 is provided, this filtering\
           \ is ignored."
+        explode: true
         in: query
         name: lastN
+        required: false
         schema:
           default: 0
           format: int32
           type: integer
+        style: form
       - description: An optional parameter for filtering only objects related to a
           car with the specified ID.
+        explode: true
         in: query
         name: carId
+        required: false
         schema:
           $ref: '#/components/schemas/Id'
+        style: form
       responses:
         "200":
           content:
@@ -1516,40 +1583,51 @@ paths:
       parameters:
       - description: ID of the Order for which to find the Order States.
         example: 1
+        explode: false
         in: path
         name: orderId
         required: true
         schema:
           format: int32
           type: integer
+        style: simple
       - description: "Applies to GET methods when no objects would be returned at\
           \ the moment of request. If wait=true, \\ the request will wait for the\
           \ next object to be created and then returns it. If wait=False or unspecified,\
           \ the request will return \\ an empty list."
+        explode: true
         in: query
         name: wait
+        required: false
         schema:
           default: false
           type: boolean
+        style: form
       - description: "A Unix timestamp in milliseconds. If specified, only objects\
           \ created at the time or later will be returned. If unspecified, all objects\
           \ are returned (since is set to 0 in that case)."
+        explode: true
         in: query
         name: since
+        required: false
         schema:
           format: int64
           type: integer
+        style: form
       - description: "If specified, only the last N objects will be returned. If unspecified,\
           \ all objects are returned. \\ If some states have identical timestamps\
           \ and they all do not fit into the maximum N states, only those with higher\
           \ IDs are returned. If value smaller than 1 is provided, this filtering\
           \ is ignored."
+        explode: true
         in: query
         name: lastN
+        required: false
         schema:
           default: 0
           format: int32
           type: integer
+        style: form
       responses:
         "200":
           content:
@@ -1736,12 +1814,14 @@ paths:
       parameters:
       - description: ID of Platform HW to delete.
         example: 1
+        explode: false
         in: path
         name: platformHwId
         required: true
         schema:
           format: int32
           type: integer
+        style: simple
       responses:
         "200":
           content:
@@ -1822,12 +1902,14 @@ paths:
       parameters:
       - description: ID of the Platform HW to return.
         example: 1
+        explode: false
         in: path
         name: platformHwId
         required: true
         schema:
           format: int32
           type: integer
+        style: simple
       responses:
         "200":
           content:
@@ -2183,12 +2265,14 @@ paths:
       parameters:
       - description: An ID a the Route
         example: 1
+        explode: false
         in: path
         name: routeId
         required: true
         schema:
           format: int32
           type: integer
+        style: simple
       responses:
         "200":
           content:
@@ -2262,12 +2346,14 @@ paths:
       parameters:
       - description: An ID a the Route
         example: 1
+        explode: false
         in: path
         name: routeId
         required: true
         schema:
           format: int32
           type: integer
+        style: simple
       responses:
         "200":
           content:
@@ -2348,12 +2434,14 @@ paths:
       parameters:
       - description: An ID a the Route
         example: 1
+        explode: false
         in: path
         name: routeId
         required: true
         schema:
           format: int32
           type: integer
+        style: simple
       responses:
         "200":
           content:
@@ -2629,12 +2717,14 @@ paths:
       parameters:
       - description: ID of the Stop to be deleted.
         example: 1
+        explode: false
         in: path
         name: stopId
         required: true
         schema:
           format: int32
           type: integer
+        style: simple
       responses:
         "200":
           content:
@@ -2715,12 +2805,14 @@ paths:
       parameters:
       - description: ID of Stop to be returned.
         example: 1
+        explode: false
         in: path
         name: stopId
         required: true
         schema:
           format: int32
           type: integer
+        style: simple
       responses:
         "200":
           content:
@@ -2867,47 +2959,61 @@ components:
         \ moment of request. If wait=true, \\ the request will wait for the next object\
         \ to be created and then returns it. If wait=False or unspecified, the request\
         \ will return \\ an empty list."
+      explode: true
       in: query
       name: wait
+      required: false
       schema:
         default: false
         type: boolean
+      style: form
     Since:
       description: "A Unix timestamp in milliseconds. If specified, only objects created\
         \ at the time or later will be returned. If unspecified, all objects are returned\
         \ (since is set to 0 in that case)."
+      explode: true
       in: query
       name: since
+      required: false
       schema:
         format: int64
         type: integer
+      style: form
     LastN:
       description: "If specified, only the last N objects will be returned. If unspecified,\
         \ all objects are returned. \\ If some states have identical timestamps and\
         \ they all do not fit into the maximum N states, only those with higher IDs\
         \ are returned. If value smaller than 1 is provided, this filtering is ignored."
+      explode: true
       in: query
       name: lastN
+      required: false
       schema:
         default: 0
         format: int32
         type: integer
+      style: form
     CarId:
       description: An optional parameter for filtering only objects related to a car
         with the specified ID.
+      explode: true
       in: query
       name: carId
+      required: false
       schema:
         $ref: '#/components/schemas/Id'
+      style: form
     RouteId:
       description: An ID a the Route
       example: 1
+      explode: false
       in: path
       name: routeId
       required: true
       schema:
         format: int32
         type: integer
+      style: simple
   responses:
     ServiceUnavailable:
       content:
@@ -2989,6 +3095,9 @@ components:
   schemas:
     Error:
       description: Error object structure.
+      example:
+        code: 404
+        message: Not found
       properties:
         code:
           example: 404
