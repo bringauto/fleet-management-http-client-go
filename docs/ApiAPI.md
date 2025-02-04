@@ -53,7 +53,7 @@ Other parameters are passed through a pointer to a apiCheckApiIsAliveRequest str
 
 ### Authorization
 
-[oAuth2AuthCode](../README.md#oAuth2AuthCode), [APIKeyAuth](../README.md#APIKeyAuth)
+No authorization required
 
 ### HTTP request headers
 

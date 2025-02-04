@@ -3,7 +3,7 @@ BringAuto Fleet Management v2 API
 
 Specification for BringAuto fleet backend HTTP API
 
-API version: 3.4.3
+API version: 4.0.0
 Contact: fleet@bringauto.com
 */
 
@@ -202,7 +202,7 @@ func (r ApiDeleteCarRequest) Execute() (*http.Response, error) {
 DeleteCar Delete a Car identified by its ID.
 
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param carId The ID of the Car to be deleted.
+ @param carId The car ID.
  @return ApiDeleteCarRequest
 */
 func (a *CarAPIService) DeleteCar(ctx context.Context, carId int32) ApiDeleteCarRequest {
@@ -369,7 +369,7 @@ func (r ApiGetCarRequest) Execute() (*Car, *http.Response, error) {
 GetCar Find a single Car by its ID.
 
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param carId An ID of the Car to be returned.
+ @param carId The car ID.
  @return ApiGetCarRequest
 */
 func (a *CarAPIService) GetCar(ctx context.Context, carId int32) ApiGetCarRequest {

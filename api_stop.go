@@ -3,7 +3,7 @@ BringAuto Fleet Management v2 API
 
 Specification for BringAuto fleet backend HTTP API
 
-API version: 3.4.3
+API version: 4.0.0
 Contact: fleet@bringauto.com
 */
 
@@ -202,7 +202,7 @@ func (r ApiDeleteStopRequest) Execute() (*http.Response, error) {
 DeleteStop Delete a Stop with the specified ID.
 
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param stopId ID of the Stop to be deleted.
+ @param stopId The Stop ID.
  @return ApiDeleteStopRequest
 */
 func (a *StopAPIService) DeleteStop(ctx context.Context, stopId int32) ApiDeleteStopRequest {
@@ -369,7 +369,7 @@ func (r ApiGetStopRequest) Execute() (*Stop, *http.Response, error) {
 GetStop Find and return a single Stop by its ID.
 
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param stopId ID of Stop to be returned.
+ @param stopId The Stop ID.
  @return ApiGetStopRequest
 */
 func (a *StopAPIService) GetStop(ctx context.Context, stopId int32) ApiGetStopRequest {

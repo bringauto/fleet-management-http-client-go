@@ -9,7 +9,7 @@ info:
     name: AGPLv3
     url: https://www.gnu.org/licenses/agpl-3.0.en.html
   title: BringAuto Fleet Management v2 API
-  version: 3.4.3
+  version: 4.0.0
 servers:
 - url: /v2/management
 security:
@@ -36,20 +36,20 @@ tags:
   name: stop
 - description: Authentication-related functions
   name: security
+- description: Tenant-related functions
+  name: tenant
 paths:
   /action/car/{carId}:
     get:
       operationId: get_car_action_states
       parameters:
-      - description: ID of the Car for which to return the action states.
-        example: 1
+      - description: The car ID.
         explode: false
         in: path
         name: carId
         required: true
         schema:
-          format: int32
-          type: integer
+          $ref: '#/components/schemas/Id'
         style: simple
       - description: "Applies to GET methods when no objects would be returned at\
           \ the moment of request. If wait=true, \\ the request will wait for the\
@@ -150,15 +150,13 @@ paths:
     post:
       operationId: pause_car
       parameters:
-      - description: ID of the Car which should be paused.
-        example: 1
+      - description: The car ID.
         explode: false
         in: path
         name: carId
         required: true
         schema:
-          format: int32
-          type: integer
+          $ref: '#/components/schemas/Id'
         style: simple
       responses:
         "200":
@@ -222,15 +220,13 @@ paths:
     post:
       operationId: unpause_car
       parameters:
-      - description: ID of the Car which should be unpaused.
-        example: 1
+      - description: The car ID.
         explode: false
         in: path
         name: carId
         required: true
         schema:
-          format: int32
-          type: integer
+          $ref: '#/components/schemas/Id'
         style: simple
       responses:
         "200":
@@ -320,6 +316,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/Error'
           description: Unexpected error
+      security: []
       summary: Check HTTP server is running and accessible.
       tags:
       - api
@@ -530,15 +527,13 @@ paths:
     delete:
       operationId: delete_car
       parameters:
-      - description: The ID of the Car to be deleted.
-        example: 1
+      - description: The car ID.
         explode: false
         in: path
         name: carId
         required: true
         schema:
-          format: int32
-          type: integer
+          $ref: '#/components/schemas/Id'
         style: simple
       responses:
         "200":
@@ -619,15 +614,13 @@ paths:
     get:
       operationId: get_car
       parameters:
-      - description: An ID of the Car to be returned.
-        example: 1
+      - description: The car ID.
         explode: false
         in: path
         name: carId
         required: true
         schema:
-          format: int32
-          type: integer
+          $ref: '#/components/schemas/Id'
         style: simple
       responses:
         "200":
@@ -889,15 +882,13 @@ paths:
           format: int32
           type: integer
         style: form
-      - description: ID of the Car for which to find the Car States.
-        example: 1
+      - description: The car ID.
         explode: false
         in: path
         name: carId
         required: true
         schema:
-          format: int32
-          type: integer
+          $ref: '#/components/schemas/Id'
         style: simple
       responses:
         "200":
@@ -1126,15 +1117,13 @@ paths:
           format: int64
           type: integer
         style: form
-      - description: ID of the Car for which Orders shall be returned.
-        example: 1
+      - description: The car ID.
         explode: false
         in: path
         name: carId
         required: true
         schema:
-          format: int32
-          type: integer
+          $ref: '#/components/schemas/Id'
         style: simple
       responses:
         "200":
@@ -1210,25 +1199,21 @@ paths:
     delete:
       operationId: delete_order
       parameters:
-      - description: ID of the Car to which the Order is assigned.
-        example: 1
+      - description: The car ID.
         explode: false
         in: path
         name: carId
         required: true
         schema:
-          format: int32
-          type: integer
+          $ref: '#/components/schemas/Id'
         style: simple
-      - description: ID of the Order to be returned.
-        example: 1
+      - description: The order ID.
         explode: false
         in: path
         name: orderId
         required: true
         schema:
-          format: int32
-          type: integer
+          $ref: '#/components/schemas/Id'
         style: simple
       responses:
         "200":
@@ -1309,25 +1294,21 @@ paths:
     get:
       operationId: get_order
       parameters:
-      - description: ID of the Car to which the Order is assigned.
-        example: 1
+      - description: The car ID.
         explode: false
         in: path
         name: carId
         required: true
         schema:
-          format: int32
-          type: integer
+          $ref: '#/components/schemas/Id'
         style: simple
-      - description: ID of the Order to be returned.
-        example: 1
+      - description: The order ID.
         explode: false
         in: path
         name: orderId
         required: true
         schema:
-          format: int32
-          type: integer
+          $ref: '#/components/schemas/Id'
         style: simple
       responses:
         "200":
@@ -1581,15 +1562,13 @@ paths:
     get:
       operationId: get_order_states
       parameters:
-      - description: ID of the Order for which to find the Order States.
-        example: 1
+      - description: The order ID.
         explode: false
         in: path
         name: orderId
         required: true
         schema:
-          format: int32
-          type: integer
+          $ref: '#/components/schemas/Id'
         style: simple
       - description: "Applies to GET methods when no objects would be returned at\
           \ the moment of request. If wait=true, \\ the request will wait for the\
@@ -1812,15 +1791,13 @@ paths:
     delete:
       operationId: delete_hw
       parameters:
-      - description: ID of Platform HW to delete.
-        example: 1
+      - description: The Platform HW ID.
         explode: false
         in: path
         name: platformHwId
         required: true
         schema:
-          format: int32
-          type: integer
+          $ref: '#/components/schemas/Id'
         style: simple
       responses:
         "200":
@@ -1900,15 +1877,13 @@ paths:
     get:
       operationId: get_hw
       parameters:
-      - description: ID of the Platform HW to return.
-        example: 1
+      - description: The Platform HW ID.
         explode: false
         in: path
         name: platformHwId
         required: true
         schema:
-          format: int32
-          type: integer
+          $ref: '#/components/schemas/Id'
         style: simple
       responses:
         "200":
@@ -2715,15 +2690,13 @@ paths:
     delete:
       operationId: delete_stop
       parameters:
-      - description: ID of the Stop to be deleted.
-        example: 1
+      - description: The Stop ID.
         explode: false
         in: path
         name: stopId
         required: true
         schema:
-          format: int32
-          type: integer
+          $ref: '#/components/schemas/Id'
         style: simple
       responses:
         "200":
@@ -2803,15 +2776,13 @@ paths:
     get:
       operationId: get_stop
       parameters:
-      - description: ID of Stop to be returned.
-        example: 1
+      - description: The Stop ID.
         explode: false
         in: path
         name: stopId
         required: true
         schema:
-          format: int32
-          type: integer
+          $ref: '#/components/schemas/Id'
         style: simple
       responses:
         "200":
@@ -2879,6 +2850,220 @@ paths:
       tags:
       - stop
       x-openapi-router-controller: fleet_management_api.api_impl.controllers.stop
+  /tenant:
+    delete:
+      operationId: delete_tenant
+      parameters:
+      - description: Tenant ID
+        explode: false
+        in: path
+        name: tenantId
+        required: true
+        schema:
+          $ref: '#/components/schemas/Id'
+        style: simple
+      responses:
+        "200":
+          content:
+            text/plain: {}
+          description: The Tenant with the specified ID has been deleted.
+        "400":
+          content:
+            application/json:
+              examples:
+                error:
+                  value:
+                    code: "400"
+                    message: Bad request
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: Bad request
+        "401":
+          content:
+            application/json:
+              examples:
+                error:
+                  value:
+                    code: "401"
+                    message: Unauthorized
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: Unauthorized
+        "403":
+          content:
+            application/json:
+              examples:
+                error:
+                  value:
+                    code: "403"
+                    message: Request forbidden
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: Forbidden
+        "404":
+          content:
+            application/json:
+              examples:
+                error:
+                  value:
+                    code: "404"
+                    message: Resource not found
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: Not found
+        "405":
+          content:
+            application/json:
+              examples:
+                error:
+                  value:
+                    code: "405"
+                    message: Method not allowed
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: Method not allowed
+        default:
+          content:
+            application/json:
+              examples:
+                error:
+                  value:
+                    code: "500"
+                    message: Unexpected error
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: Unexpected error
+      summary: Delete Tenant with the given ID.
+      tags:
+      - tenant
+      x-openapi-router-controller: fleet_management_api.api_impl.controllers.tenant
+    get:
+      operationId: get_tenants
+      responses:
+        "200":
+          content:
+            application/json:
+              example:
+              - id: 1
+                name: bring_auto
+              schema:
+                items:
+                  $ref: '#/components/schemas/Tenant'
+                type: array
+          description: All the currently existing Tenants have been returned.
+        "401":
+          content:
+            application/json:
+              examples:
+                error:
+                  value:
+                    code: "401"
+                    message: Unauthorized
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: Unauthorized
+        "403":
+          content:
+            application/json:
+              examples:
+                error:
+                  value:
+                    code: "403"
+                    message: Request forbidden
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: Forbidden
+        default:
+          content:
+            application/json:
+              examples:
+                error:
+                  value:
+                    code: "500"
+                    message: Unexpected error
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: Unexpected error
+      summary: Find and return all existing Tenant.
+      tags:
+      - tenant
+      x-openapi-router-controller: fleet_management_api.api_impl.controllers.tenant
+  /tenant/{tenantId}:
+    head:
+      operationId: set_tenant_cookie
+      parameters:
+      - description: Tenant ID
+        explode: false
+        in: path
+        name: tenantId
+        required: true
+        schema:
+          $ref: '#/components/schemas/Id'
+        style: simple
+      responses:
+        "200":
+          description: The tenant with tenantId is accessible and its name is included
+            in the Set-Cookie header.
+        "400":
+          content:
+            application/json:
+              examples:
+                error:
+                  value:
+                    code: "400"
+                    message: Bad request
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: Bad request
+        "401":
+          content:
+            application/json:
+              examples:
+                error:
+                  value:
+                    code: "401"
+                    message: Unauthorized
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: Unauthorized
+        "403":
+          content:
+            application/json:
+              examples:
+                error:
+                  value:
+                    code: "403"
+                    message: Request forbidden
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: Forbidden
+        "404":
+          content:
+            application/json:
+              examples:
+                error:
+                  value:
+                    code: "404"
+                    message: Resource not found
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: Not found
+        default:
+          content:
+            application/json:
+              examples:
+                error:
+                  value:
+                    code: "500"
+                    message: Unexpected error
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: Unexpected error
+      summary: Make the server to send back response with set-cookie header to set
+        cookie equal to the name of the tenand with the tenantId.
+      tags:
+      - tenant
+      x-openapi-router-controller: fleet_management_api.api_impl.controllers.tenant
   /token_get:
     get:
       description: Callback endpoint for the Keycloak to receive JWT token.
@@ -2954,6 +3139,15 @@ paths:
       x-openapi-router-controller: fleet_management_api.api_impl.auth_controller
 components:
   parameters:
+    CarId:
+      description: The car ID.
+      explode: false
+      in: path
+      name: carId
+      required: true
+      schema:
+        $ref: '#/components/schemas/Id'
+      style: simple
     Wait:
       description: "Applies to GET methods when no objects would be returned at the\
         \ moment of request. If wait=true, \\ the request will wait for the next object\
@@ -2993,7 +3187,16 @@ components:
         format: int32
         type: integer
       style: form
-    CarId:
+    OrderId:
+      description: The order ID.
+      explode: false
+      in: path
+      name: orderId
+      required: true
+      schema:
+        $ref: '#/components/schemas/Id'
+      style: simple
+    CarIdQuery:
       description: An optional parameter for filtering only objects related to a car
         with the specified ID.
       explode: true
@@ -3003,6 +3206,15 @@ components:
       schema:
         $ref: '#/components/schemas/Id'
       style: form
+    PlatformHwId:
+      description: The Platform HW ID.
+      explode: false
+      in: path
+      name: platformHwId
+      required: true
+      schema:
+        $ref: '#/components/schemas/Id'
+      style: simple
     RouteId:
       description: An ID a the Route
       example: 1
@@ -3013,6 +3225,24 @@ components:
       schema:
         format: int32
         type: integer
+      style: simple
+    StopId:
+      description: The Stop ID.
+      explode: false
+      in: path
+      name: stopId
+      required: true
+      schema:
+        $ref: '#/components/schemas/Id'
+      style: simple
+    TenantId:
+      description: Tenant ID
+      explode: false
+      in: path
+      name: tenantId
+      required: true
+      schema:
+        $ref: '#/components/schemas/Id'
       style: simple
   responses:
     ServiceUnavailable:
@@ -3133,11 +3363,6 @@ components:
           status: idle
           carId: 1
         platformHwId: 1
-        lastActionState:
-          actionStatus: normal
-          id: 1
-          carId: 1
-          timestamp: 1616425275913
       properties:
         id:
           example: 1
@@ -3167,8 +3392,6 @@ components:
           type: boolean
         lastState:
           $ref: '#/components/schemas/CarState'
-        lastActionState:
-          $ref: '#/components/schemas/CarActionState'
       required:
       - carAdminPhone
       - name
@@ -3240,6 +3463,11 @@ components:
       example: idle
       title: CarStatus
       type: string
+    Id:
+      example: 1
+      format: int32
+      title: Id
+      type: integer
     CarActionState:
       description: Car Action State object structure
       example:
@@ -3399,11 +3627,6 @@ components:
       example: to_accept
       title: OrderStatus
       type: string
-    Id:
-      example: 1
-      format: int32
-      title: Id
-      type: integer
     PlatformHW:
       description: PlatformHW object structure.
       example:
@@ -3551,6 +3774,26 @@ components:
       - name
       - position
       title: Stop
+      type: object
+    Tenant:
+      description: Tenant owning a subset of the entities on the server.
+      example:
+        name: Tenant 1
+        id: 1
+      properties:
+        id:
+          example: 1
+          format: int32
+          title: Id
+          type: integer
+        name:
+          description: Tenant name
+          example: Tenant 1
+          title: tenant_name
+          type: string
+      required:
+      - name
+      title: Tenant
       type: object
     MobilePhone:
       description: MobilePhone Primitive structure.

@@ -94,7 +94,7 @@ import (
 )
 
 func main() {
-	platformHwId := int32(1) // int32 | ID of Platform HW to delete.
+	platformHwId := int32(56) // int32 | The Platform HW ID.
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
@@ -112,7 +112,7 @@ func main() {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**platformHwId** | **int32** | ID of Platform HW to delete. | 
+**platformHwId** | **int32** | The Platform HW ID. | 
 
 ### Other Parameters
 
@@ -160,7 +160,7 @@ import (
 )
 
 func main() {
-	platformHwId := int32(1) // int32 | ID of the Platform HW to return.
+	platformHwId := int32(56) // int32 | The Platform HW ID.
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
@@ -180,7 +180,7 @@ func main() {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**platformHwId** | **int32** | ID of the Platform HW to return. | 
+**platformHwId** | **int32** | The Platform HW ID. | 
 
 ### Other Parameters
 

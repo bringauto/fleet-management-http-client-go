@@ -3,7 +3,7 @@ BringAuto Fleet Management v2 API
 
 Specification for BringAuto fleet backend HTTP API
 
-API version: 3.4.3
+API version: 4.0.0
 Contact: fleet@bringauto.com
 */
 
@@ -203,8 +203,8 @@ func (r ApiDeleteOrderRequest) Execute() (*http.Response, error) {
 DeleteOrder Delete an Order identified by its ID and ID of a car to which it is assigned.
 
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param carId ID of the Car to which the Order is assigned.
- @param orderId ID of the Order to be returned.
+ @param carId The car ID.
+ @param orderId The order ID.
  @return ApiDeleteOrderRequest
 */
 func (a *OrderAPIService) DeleteOrder(ctx context.Context, carId int32, orderId int32) ApiDeleteOrderRequest {
@@ -380,7 +380,7 @@ func (r ApiGetCarOrdersRequest) Execute() ([]Order, *http.Response, error) {
 GetCarOrders Find existing Orders by the corresponding Car ID and return them.
 
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param carId ID of the Car for which Orders shall be returned.
+ @param carId The car ID.
  @return ApiGetCarOrdersRequest
 */
 func (a *OrderAPIService) GetCarOrders(ctx context.Context, carId int32) ApiGetCarOrdersRequest {
@@ -551,8 +551,8 @@ func (r ApiGetOrderRequest) Execute() (*Order, *http.Response, error) {
 GetOrder Find an existing Order by the car ID and the order ID and return it.
 
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param carId ID of the Car to which the Order is assigned.
- @param orderId ID of the Order to be returned.
+ @param carId The car ID.
+ @param orderId The order ID.
  @return ApiGetOrderRequest
 */
 func (a *OrderAPIService) GetOrder(ctx context.Context, carId int32, orderId int32) ApiGetOrderRequest {

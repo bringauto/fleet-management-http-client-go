@@ -29,7 +29,7 @@ import (
 )
 
 func main() {
-	carId := int32(1) // int32 | ID of the Car for which to return the action states.
+	carId := int32(56) // int32 | The car ID.
 	wait := true // bool | Applies to GET methods when no objects would be returned at the moment of request. If wait=true, \\ the request will wait for the next object to be created and then returns it. If wait=False or unspecified, the request will return \\ an empty list. (optional) (default to false)
 	since := int64(789) // int64 | A Unix timestamp in milliseconds. If specified, only objects created at the time or later will be returned. If unspecified, all objects are returned (since is set to 0 in that case). (optional)
 	lastN := int32(56) // int32 | If specified, only the last N objects will be returned. If unspecified, all objects are returned. \\ If some states have identical timestamps and they all do not fit into the maximum N states, only those with higher IDs are returned. If value smaller than 1 is provided, this filtering is ignored. (optional) (default to 0)
@@ -52,7 +52,7 @@ func main() {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**carId** | **int32** | ID of the Car for which to return the action states. | 
+**carId** | **int32** | The car ID. | 
 
 ### Other Parameters
 
@@ -103,7 +103,7 @@ import (
 )
 
 func main() {
-	carId := int32(1) // int32 | ID of the Car which should be paused.
+	carId := int32(56) // int32 | The car ID.
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
@@ -123,7 +123,7 @@ func main() {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**carId** | **int32** | ID of the Car which should be paused. | 
+**carId** | **int32** | The car ID. | 
 
 ### Other Parameters
 
@@ -171,7 +171,7 @@ import (
 )
 
 func main() {
-	carId := int32(1) // int32 | ID of the Car which should be unpaused.
+	carId := int32(56) // int32 | The car ID.
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
@@ -191,7 +191,7 @@ func main() {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**carId** | **int32** | ID of the Car which should be unpaused. | 
+**carId** | **int32** | The car ID. | 
 
 ### Other Parameters
 

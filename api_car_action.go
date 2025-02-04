@@ -3,7 +3,7 @@ BringAuto Fleet Management v2 API
 
 Specification for BringAuto fleet backend HTTP API
 
-API version: 3.4.3
+API version: 4.0.0
 Contact: fleet@bringauto.com
 */
 
@@ -59,7 +59,7 @@ func (r ApiGetCarActionStatesRequest) Execute() ([]CarActionState, *http.Respons
 GetCarActionStates Finds car action states for a Car with given carId.
 
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param carId ID of the Car for which to return the action states.
+ @param carId The car ID.
  @return ApiGetCarActionStatesRequest
 */
 func (a *CarActionAPIService) GetCarActionStates(ctx context.Context, carId int32) ApiGetCarActionStatesRequest {
@@ -230,7 +230,7 @@ func (r ApiPauseCarRequest) Execute() ([]CarActionState, *http.Response, error) 
 PauseCar Finds and pauses a Car with given carId, if not already paused. Sets car action status to PAUSED if it is not in PAUSED action status already.
 
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param carId ID of the Car which should be paused.
+ @param carId The car ID.
  @return ApiPauseCarRequest
 */
 func (a *CarActionAPIService) PauseCar(ctx context.Context, carId int32) ApiPauseCarRequest {
@@ -386,7 +386,7 @@ func (r ApiUnpauseCarRequest) Execute() ([]CarActionState, *http.Response, error
 UnpauseCar Finds and unpauses a Car with given carId, if paused. Sets car action status to NORMAL only if it is in PAUSED action status.
 
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param carId ID of the Car which should be unpaused.
+ @param carId The car ID.
  @return ApiUnpauseCarRequest
 */
 func (a *CarActionAPIService) UnpauseCar(ctx context.Context, carId int32) ApiUnpauseCarRequest {

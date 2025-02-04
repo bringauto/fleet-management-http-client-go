@@ -17,37 +17,38 @@ import (
 	"fmt"
 )
 
-// checks if the PlatformHW type satisfies the MappedNullable interface at compile time
-var _ MappedNullable = &PlatformHW{}
+// checks if the Tenant type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &Tenant{}
 
-// PlatformHW PlatformHW object structure.
-type PlatformHW struct {
+// Tenant Tenant owning a subset of the entities on the server.
+type Tenant struct {
 	Id *int32 `json:"id,omitempty"`
+	// Tenant name
 	Name string `json:"name"`
 }
 
-type _PlatformHW PlatformHW
+type _Tenant Tenant
 
-// NewPlatformHW instantiates a new PlatformHW object
+// NewTenant instantiates a new Tenant object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewPlatformHW(name string) *PlatformHW {
-	this := PlatformHW{}
+func NewTenant(name string) *Tenant {
+	this := Tenant{}
 	this.Name = name
 	return &this
 }
 
-// NewPlatformHWWithDefaults instantiates a new PlatformHW object
+// NewTenantWithDefaults instantiates a new Tenant object
 // This constructor will only assign default values to properties that have it defined,
 // but it doesn't guarantee that properties required by API are set
-func NewPlatformHWWithDefaults() *PlatformHW {
-	this := PlatformHW{}
+func NewTenantWithDefaults() *Tenant {
+	this := Tenant{}
 	return &this
 }
 
 // GetId returns the Id field value if set, zero value otherwise.
-func (o *PlatformHW) GetId() int32 {
+func (o *Tenant) GetId() int32 {
 	if o == nil || IsNil(o.Id) {
 		var ret int32
 		return ret
@@ -57,7 +58,7 @@ func (o *PlatformHW) GetId() int32 {
 
 // GetIdOk returns a tuple with the Id field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *PlatformHW) GetIdOk() (*int32, bool) {
+func (o *Tenant) GetIdOk() (*int32, bool) {
 	if o == nil || IsNil(o.Id) {
 		return nil, false
 	}
@@ -65,7 +66,7 @@ func (o *PlatformHW) GetIdOk() (*int32, bool) {
 }
 
 // HasId returns a boolean if a field has been set.
-func (o *PlatformHW) HasId() bool {
+func (o *Tenant) HasId() bool {
 	if o != nil && !IsNil(o.Id) {
 		return true
 	}
@@ -74,12 +75,12 @@ func (o *PlatformHW) HasId() bool {
 }
 
 // SetId gets a reference to the given int32 and assigns it to the Id field.
-func (o *PlatformHW) SetId(v int32) {
+func (o *Tenant) SetId(v int32) {
 	o.Id = &v
 }
 
 // GetName returns the Name field value
-func (o *PlatformHW) GetName() string {
+func (o *Tenant) GetName() string {
 	if o == nil {
 		var ret string
 		return ret
@@ -90,7 +91,7 @@ func (o *PlatformHW) GetName() string {
 
 // GetNameOk returns a tuple with the Name field value
 // and a boolean to check if the value has been set.
-func (o *PlatformHW) GetNameOk() (*string, bool) {
+func (o *Tenant) GetNameOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -98,11 +99,11 @@ func (o *PlatformHW) GetNameOk() (*string, bool) {
 }
 
 // SetName sets field value
-func (o *PlatformHW) SetName(v string) {
+func (o *Tenant) SetName(v string) {
 	o.Name = v
 }
 
-func (o PlatformHW) MarshalJSON() ([]byte, error) {
+func (o Tenant) MarshalJSON() ([]byte, error) {
 	toSerialize,err := o.ToMap()
 	if err != nil {
 		return []byte{}, err
@@ -110,7 +111,7 @@ func (o PlatformHW) MarshalJSON() ([]byte, error) {
 	return json.Marshal(toSerialize)
 }
 
-func (o PlatformHW) ToMap() (map[string]interface{}, error) {
+func (o Tenant) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
 	if !IsNil(o.Id) {
 		toSerialize["id"] = o.Id
@@ -119,7 +120,7 @@ func (o PlatformHW) ToMap() (map[string]interface{}, error) {
 	return toSerialize, nil
 }
 
-func (o *PlatformHW) UnmarshalJSON(data []byte) (err error) {
+func (o *Tenant) UnmarshalJSON(data []byte) (err error) {
 	// This validates that all required properties are included in the JSON object
 	// by unmarshalling the object into a generic map with string keys and checking
 	// that every required field exists as a key in the generic map.
@@ -141,53 +142,53 @@ func (o *PlatformHW) UnmarshalJSON(data []byte) (err error) {
 		}
 	}
 
-	varPlatformHW := _PlatformHW{}
+	varTenant := _Tenant{}
 
 	decoder := json.NewDecoder(bytes.NewReader(data))
 	decoder.DisallowUnknownFields()
-	err = decoder.Decode(&varPlatformHW)
+	err = decoder.Decode(&varTenant)
 
 	if err != nil {
 		return err
 	}
 
-	*o = PlatformHW(varPlatformHW)
+	*o = Tenant(varTenant)
 
 	return err
 }
 
-type NullablePlatformHW struct {
-	value *PlatformHW
+type NullableTenant struct {
+	value *Tenant
 	isSet bool
 }
 
-func (v NullablePlatformHW) Get() *PlatformHW {
+func (v NullableTenant) Get() *Tenant {
 	return v.value
 }
 
-func (v *NullablePlatformHW) Set(val *PlatformHW) {
+func (v *NullableTenant) Set(val *Tenant) {
 	v.value = val
 	v.isSet = true
 }
 
-func (v NullablePlatformHW) IsSet() bool {
+func (v NullableTenant) IsSet() bool {
 	return v.isSet
 }
 
-func (v *NullablePlatformHW) Unset() {
+func (v *NullableTenant) Unset() {
 	v.value = nil
 	v.isSet = false
 }
 
-func NewNullablePlatformHW(val *PlatformHW) *NullablePlatformHW {
-	return &NullablePlatformHW{value: val, isSet: true}
+func NewNullableTenant(val *Tenant) *NullableTenant {
+	return &NullableTenant{value: val, isSet: true}
 }
 
-func (v NullablePlatformHW) MarshalJSON() ([]byte, error) {
+func (v NullableTenant) MarshalJSON() ([]byte, error) {
 	return json.Marshal(v.value)
 }
 
-func (v *NullablePlatformHW) UnmarshalJSON(src []byte) error {
+func (v *NullableTenant) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }

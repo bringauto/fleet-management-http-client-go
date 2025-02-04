@@ -95,7 +95,7 @@ import (
 )
 
 func main() {
-	stopId := int32(1) // int32 | ID of the Stop to be deleted.
+	stopId := int32(56) // int32 | The Stop ID.
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
@@ -113,7 +113,7 @@ func main() {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**stopId** | **int32** | ID of the Stop to be deleted. | 
+**stopId** | **int32** | The Stop ID. | 
 
 ### Other Parameters
 
@@ -161,7 +161,7 @@ import (
 )
 
 func main() {
-	stopId := int32(1) // int32 | ID of Stop to be returned.
+	stopId := int32(56) // int32 | The Stop ID.
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
@@ -181,7 +181,7 @@ func main() {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**stopId** | **int32** | ID of Stop to be returned. | 
+**stopId** | **int32** | The Stop ID. | 
 
 ### Other Parameters
 

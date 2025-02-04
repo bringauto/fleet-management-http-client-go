@@ -95,7 +95,7 @@ import (
 )
 
 func main() {
-	carId := int32(1) // int32 | The ID of the Car to be deleted.
+	carId := int32(56) // int32 | The car ID.
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
@@ -113,7 +113,7 @@ func main() {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**carId** | **int32** | The ID of the Car to be deleted. | 
+**carId** | **int32** | The car ID. | 
 
 ### Other Parameters
 
@@ -161,7 +161,7 @@ import (
 )
 
 func main() {
-	carId := int32(1) // int32 | An ID of the Car to be returned.
+	carId := int32(56) // int32 | The car ID.
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
@@ -181,7 +181,7 @@ func main() {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**carId** | **int32** | An ID of the Car to be returned. | 
+**carId** | **int32** | The car ID. | 
 
 ### Other Parameters
 
