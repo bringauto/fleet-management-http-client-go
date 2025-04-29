@@ -3,7 +3,7 @@ BringAuto Fleet Management v2 API
 
 Specification for BringAuto fleet backend HTTP API
 
-API version: 4.0.0
+API version: 4.1.0
 Contact: fleet@bringauto.com
 */
 
@@ -43,7 +43,7 @@ var (
 	queryDescape    = strings.NewReplacer( "%5B", "[", "%5D", "]" )
 )
 
-// APIClient manages communication with the BringAuto Fleet Management v2 API API v4.0.0
+// APIClient manages communication with the BringAuto Fleet Management v2 API API v4.1.0
 // In most cases there should be only one, shared, APIClient.
 type APIClient struct {
 	cfg    *Configuration

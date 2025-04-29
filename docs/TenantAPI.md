@@ -4,10 +4,75 @@ All URIs are relative to */v2/management*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**DeleteTenant**](TenantAPI.md#DeleteTenant) | **Delete** /tenant | Delete Tenant with the given ID.
-[**GetTenants**](TenantAPI.md#GetTenants) | **Get** /tenant | Find and return all existing Tenant.
-[**SetTenantCookie**](TenantAPI.md#SetTenantCookie) | **Head** /tenant/{tenantId} | Make the server to send back response with set-cookie header to set cookie equal to the name of the tenand with the tenantId.
+[**CreateTenants**](TenantAPI.md#CreateTenants) | **Post** /tenant | Create new Tenants.
+[**DeleteTenant**](TenantAPI.md#DeleteTenant) | **Delete** /tenant/{tenantId} | Delete Tenant with the given ID.
+[**GetTenants**](TenantAPI.md#GetTenants) | **Get** /tenant | Find and return all existing Tenants.
+[**SetTenantCookie**](TenantAPI.md#SetTenantCookie) | **Head** /tenant/{tenantId} | Make the server send back a response with set-cookie header to set cookie equal to the name of the tenand with the tenantId.
 
+
+
+## CreateTenants
+
+> []Tenant CreateTenants(ctx).Tenant(tenant).Execute()
+
+Create new Tenants.
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/GIT_USER_ID/GIT_REPO_ID"
+)
+
+func main() {
+	tenant := []openapiclient.Tenant{*openapiclient.NewTenant("Tenant 1")} // []Tenant | Tenants to be created.
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.TenantAPI.CreateTenants(context.Background()).Tenant(tenant).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `TenantAPI.CreateTenants``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `CreateTenants`: []Tenant
+	fmt.Fprintf(os.Stdout, "Response from `TenantAPI.CreateTenants`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiCreateTenantsRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **tenant** | [**[]Tenant**](Tenant.md) | Tenants to be created. | 
+
+### Return type
+
+[**[]Tenant**](Tenant.md)
+
+### Authorization
+
+[oAuth2AuthCode](../README.md#oAuth2AuthCode), [APIKeyAuth](../README.md#APIKeyAuth)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
 
 
 ## DeleteTenant
@@ -80,7 +145,7 @@ Name | Type | Description  | Notes
 
 > []Tenant GetTenants(ctx).Execute()
 
-Find and return all existing Tenant.
+Find and return all existing Tenants.
 
 ### Example
 
@@ -139,7 +204,7 @@ Other parameters are passed through a pointer to a apiGetTenantsRequest struct v
 
 > SetTenantCookie(ctx, tenantId).Execute()
 
-Make the server to send back response with set-cookie header to set cookie equal to the name of the tenand with the tenantId.
+Make the server send back a response with set-cookie header to set cookie equal to the name of the tenand with the tenantId.
 
 ### Example
 
