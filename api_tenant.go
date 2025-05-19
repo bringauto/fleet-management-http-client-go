@@ -21,60 +21,60 @@ import (
 )
 
 
-// CarAPIService CarAPI service
-type CarAPIService service
+// TenantAPIService TenantAPI service
+type TenantAPIService service
 
-type ApiCreateCarsRequest struct {
+type ApiCreateTenantsRequest struct {
 	ctx context.Context
-	ApiService *CarAPIService
-	car *[]Car
+	ApiService *TenantAPIService
+	tenant *[]Tenant
 }
 
-// A list of Car models in JSON format.
-func (r ApiCreateCarsRequest) Car(car []Car) ApiCreateCarsRequest {
-	r.car = &car
+// Tenants to be created.
+func (r ApiCreateTenantsRequest) Tenant(tenant []Tenant) ApiCreateTenantsRequest {
+	r.tenant = &tenant
 	return r
 }
 
-func (r ApiCreateCarsRequest) Execute() ([]Car, *http.Response, error) {
-	return r.ApiService.CreateCarsExecute(r)
+func (r ApiCreateTenantsRequest) Execute() ([]Tenant, *http.Response, error) {
+	return r.ApiService.CreateTenantsExecute(r)
 }
 
 /*
-CreateCars Create new Car objects.
+CreateTenants Create new Tenants.
 
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @return ApiCreateCarsRequest
+ @return ApiCreateTenantsRequest
 */
-func (a *CarAPIService) CreateCars(ctx context.Context) ApiCreateCarsRequest {
-	return ApiCreateCarsRequest{
+func (a *TenantAPIService) CreateTenants(ctx context.Context) ApiCreateTenantsRequest {
+	return ApiCreateTenantsRequest{
 		ApiService: a,
 		ctx: ctx,
 	}
 }
 
 // Execute executes the request
-//  @return []Car
-func (a *CarAPIService) CreateCarsExecute(r ApiCreateCarsRequest) ([]Car, *http.Response, error) {
+//  @return []Tenant
+func (a *TenantAPIService) CreateTenantsExecute(r ApiCreateTenantsRequest) ([]Tenant, *http.Response, error) {
 	var (
 		localVarHTTPMethod   = http.MethodPost
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		localVarReturnValue  []Car
+		localVarReturnValue  []Tenant
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "CarAPIService.CreateCars")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "TenantAPIService.CreateTenants")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/car"
+	localVarPath := localBasePath + "/tenant"
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
-	if r.car == nil {
-		return localVarReturnValue, nil, reportError("car is required and must be specified")
+	if r.tenant == nil {
+		return localVarReturnValue, nil, reportError("tenant is required and must be specified")
 	}
 
 	// to determine the Content-Type header
@@ -95,7 +95,7 @@ func (a *CarAPIService) CreateCarsExecute(r ApiCreateCarsRequest) ([]Car, *http.
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	// body params
-	localVarPostBody = r.car
+	localVarPostBody = r.tenant
 	if r.ctx != nil {
 		// API Key Authentication
 		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
@@ -154,7 +154,7 @@ func (a *CarAPIService) CreateCarsExecute(r ApiCreateCarsRequest) ([]Car, *http.
 					newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
-		if localVarHTTPResponse.StatusCode == 403 {
+		if localVarHTTPResponse.StatusCode == 409 {
 			var v Error
 			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 			if err != nil {
@@ -188,46 +188,46 @@ func (a *CarAPIService) CreateCarsExecute(r ApiCreateCarsRequest) ([]Car, *http.
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
-type ApiDeleteCarRequest struct {
+type ApiDeleteTenantRequest struct {
 	ctx context.Context
-	ApiService *CarAPIService
-	carId int32
+	ApiService *TenantAPIService
+	tenantId int32
 }
 
-func (r ApiDeleteCarRequest) Execute() (*http.Response, error) {
-	return r.ApiService.DeleteCarExecute(r)
+func (r ApiDeleteTenantRequest) Execute() (*http.Response, error) {
+	return r.ApiService.DeleteTenantExecute(r)
 }
 
 /*
-DeleteCar Delete a Car identified by its ID.
+DeleteTenant Delete Tenant with the given ID.
 
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param carId The car ID.
- @return ApiDeleteCarRequest
+ @param tenantId Tenant ID
+ @return ApiDeleteTenantRequest
 */
-func (a *CarAPIService) DeleteCar(ctx context.Context, carId int32) ApiDeleteCarRequest {
-	return ApiDeleteCarRequest{
+func (a *TenantAPIService) DeleteTenant(ctx context.Context, tenantId int32) ApiDeleteTenantRequest {
+	return ApiDeleteTenantRequest{
 		ApiService: a,
 		ctx: ctx,
-		carId: carId,
+		tenantId: tenantId,
 	}
 }
 
 // Execute executes the request
-func (a *CarAPIService) DeleteCarExecute(r ApiDeleteCarRequest) (*http.Response, error) {
+func (a *TenantAPIService) DeleteTenantExecute(r ApiDeleteTenantRequest) (*http.Response, error) {
 	var (
 		localVarHTTPMethod   = http.MethodDelete
 		localVarPostBody     interface{}
 		formFiles            []formFile
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "CarAPIService.DeleteCar")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "TenantAPIService.DeleteTenant")
 	if err != nil {
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/car/{carId}"
-	localVarPath = strings.Replace(localVarPath, "{"+"carId"+"}", url.PathEscape(parameterValueToString(r.carId, "carId")), -1)
+	localVarPath := localBasePath + "/tenant/{tenantId}"
+	localVarPath = strings.Replace(localVarPath, "{"+"tenantId"+"}", url.PathEscape(parameterValueToString(r.tenantId, "tenantId")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -355,211 +355,44 @@ func (a *CarAPIService) DeleteCarExecute(r ApiDeleteCarRequest) (*http.Response,
 	return localVarHTTPResponse, nil
 }
 
-type ApiGetCarRequest struct {
+type ApiGetTenantsRequest struct {
 	ctx context.Context
-	ApiService *CarAPIService
-	carId int32
+	ApiService *TenantAPIService
 }
 
-func (r ApiGetCarRequest) Execute() (*Car, *http.Response, error) {
-	return r.ApiService.GetCarExecute(r)
+func (r ApiGetTenantsRequest) Execute() ([]Tenant, *http.Response, error) {
+	return r.ApiService.GetTenantsExecute(r)
 }
 
 /*
-GetCar Find a single Car by its ID.
+GetTenants Find and return all existing Tenants.
 
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param carId The car ID.
- @return ApiGetCarRequest
+ @return ApiGetTenantsRequest
 */
-func (a *CarAPIService) GetCar(ctx context.Context, carId int32) ApiGetCarRequest {
-	return ApiGetCarRequest{
-		ApiService: a,
-		ctx: ctx,
-		carId: carId,
-	}
-}
-
-// Execute executes the request
-//  @return Car
-func (a *CarAPIService) GetCarExecute(r ApiGetCarRequest) (*Car, *http.Response, error) {
-	var (
-		localVarHTTPMethod   = http.MethodGet
-		localVarPostBody     interface{}
-		formFiles            []formFile
-		localVarReturnValue  *Car
-	)
-
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "CarAPIService.GetCar")
-	if err != nil {
-		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
-	}
-
-	localVarPath := localBasePath + "/car/{carId}"
-	localVarPath = strings.Replace(localVarPath, "{"+"carId"+"}", url.PathEscape(parameterValueToString(r.carId, "carId")), -1)
-
-	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := url.Values{}
-	localVarFormParams := url.Values{}
-
-	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{}
-
-	// set Content-Type header
-	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
-	if localVarHTTPContentType != "" {
-		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
-	}
-
-	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
-
-	// set Accept header
-	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
-	if localVarHTTPHeaderAccept != "" {
-		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
-	}
-	if r.ctx != nil {
-		// API Key Authentication
-		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
-			if apiKey, ok := auth["APIKeyAuth"]; ok {
-				var key string
-				if apiKey.Prefix != "" {
-					key = apiKey.Prefix + " " + apiKey.Key
-				} else {
-					key = apiKey.Key
-				}
-				localVarQueryParams.Add("api_key", key)
-			}
-		}
-	}
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
-	if err != nil {
-		return localVarReturnValue, nil, err
-	}
-
-	localVarHTTPResponse, err := a.client.callAPI(req)
-	if err != nil || localVarHTTPResponse == nil {
-		return localVarReturnValue, localVarHTTPResponse, err
-	}
-
-	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
-	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
-	if err != nil {
-		return localVarReturnValue, localVarHTTPResponse, err
-	}
-
-	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: localVarHTTPResponse.Status,
-		}
-		if localVarHTTPResponse.StatusCode == 400 {
-			var v Error
-			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-			if err != nil {
-				newErr.error = err.Error()
-				return localVarReturnValue, localVarHTTPResponse, newErr
-			}
-					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-					newErr.model = v
-			return localVarReturnValue, localVarHTTPResponse, newErr
-		}
-		if localVarHTTPResponse.StatusCode == 401 {
-			var v Error
-			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-			if err != nil {
-				newErr.error = err.Error()
-				return localVarReturnValue, localVarHTTPResponse, newErr
-			}
-					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-					newErr.model = v
-			return localVarReturnValue, localVarHTTPResponse, newErr
-		}
-		if localVarHTTPResponse.StatusCode == 403 {
-			var v Error
-			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-			if err != nil {
-				newErr.error = err.Error()
-				return localVarReturnValue, localVarHTTPResponse, newErr
-			}
-					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-					newErr.model = v
-			return localVarReturnValue, localVarHTTPResponse, newErr
-		}
-		if localVarHTTPResponse.StatusCode == 404 {
-			var v Error
-			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-			if err != nil {
-				newErr.error = err.Error()
-				return localVarReturnValue, localVarHTTPResponse, newErr
-			}
-					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-					newErr.model = v
-			return localVarReturnValue, localVarHTTPResponse, newErr
-		}
-			var v Error
-			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-			if err != nil {
-				newErr.error = err.Error()
-				return localVarReturnValue, localVarHTTPResponse, newErr
-			}
-					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-					newErr.model = v
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-	if err != nil {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: err.Error(),
-		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	return localVarReturnValue, localVarHTTPResponse, nil
-}
-
-type ApiGetCarsRequest struct {
-	ctx context.Context
-	ApiService *CarAPIService
-}
-
-func (r ApiGetCarsRequest) Execute() ([]Car, *http.Response, error) {
-	return r.ApiService.GetCarsExecute(r)
-}
-
-/*
-GetCars Find and return all existing Cars.
-
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @return ApiGetCarsRequest
-*/
-func (a *CarAPIService) GetCars(ctx context.Context) ApiGetCarsRequest {
-	return ApiGetCarsRequest{
+func (a *TenantAPIService) GetTenants(ctx context.Context) ApiGetTenantsRequest {
+	return ApiGetTenantsRequest{
 		ApiService: a,
 		ctx: ctx,
 	}
 }
 
 // Execute executes the request
-//  @return []Car
-func (a *CarAPIService) GetCarsExecute(r ApiGetCarsRequest) ([]Car, *http.Response, error) {
+//  @return []Tenant
+func (a *TenantAPIService) GetTenantsExecute(r ApiGetTenantsRequest) ([]Tenant, *http.Response, error) {
 	var (
 		localVarHTTPMethod   = http.MethodGet
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		localVarReturnValue  []Car
+		localVarReturnValue  []Tenant
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "CarAPIService.GetCars")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "TenantAPIService.GetTenants")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/car"
+	localVarPath := localBasePath + "/tenant"
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -663,59 +496,53 @@ func (a *CarAPIService) GetCarsExecute(r ApiGetCarsRequest) ([]Car, *http.Respon
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
-type ApiUpdateCarsRequest struct {
+type ApiSetTenantCookieRequest struct {
 	ctx context.Context
-	ApiService *CarAPIService
-	car *[]Car
+	ApiService *TenantAPIService
+	tenantId int32
 }
 
-// JSON representation of a list of the Cars with updated data.
-func (r ApiUpdateCarsRequest) Car(car []Car) ApiUpdateCarsRequest {
-	r.car = &car
-	return r
-}
-
-func (r ApiUpdateCarsRequest) Execute() (*http.Response, error) {
-	return r.ApiService.UpdateCarsExecute(r)
+func (r ApiSetTenantCookieRequest) Execute() (*http.Response, error) {
+	return r.ApiService.SetTenantCookieExecute(r)
 }
 
 /*
-UpdateCars Update already existing Cars.
+SetTenantCookie Make the server send back a response with set-cookie header to set cookie equal to the name of the tenand with the tenantId.
 
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @return ApiUpdateCarsRequest
+ @param tenantId Tenant ID
+ @return ApiSetTenantCookieRequest
 */
-func (a *CarAPIService) UpdateCars(ctx context.Context) ApiUpdateCarsRequest {
-	return ApiUpdateCarsRequest{
+func (a *TenantAPIService) SetTenantCookie(ctx context.Context, tenantId int32) ApiSetTenantCookieRequest {
+	return ApiSetTenantCookieRequest{
 		ApiService: a,
 		ctx: ctx,
+		tenantId: tenantId,
 	}
 }
 
 // Execute executes the request
-func (a *CarAPIService) UpdateCarsExecute(r ApiUpdateCarsRequest) (*http.Response, error) {
+func (a *TenantAPIService) SetTenantCookieExecute(r ApiSetTenantCookieRequest) (*http.Response, error) {
 	var (
-		localVarHTTPMethod   = http.MethodPut
+		localVarHTTPMethod   = http.MethodHead
 		localVarPostBody     interface{}
 		formFiles            []formFile
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "CarAPIService.UpdateCars")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "TenantAPIService.SetTenantCookie")
 	if err != nil {
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/car"
+	localVarPath := localBasePath + "/tenant/{tenantId}"
+	localVarPath = strings.Replace(localVarPath, "{"+"tenantId"+"}", url.PathEscape(parameterValueToString(r.tenantId, "tenantId")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
-	if r.car == nil {
-		return nil, reportError("car is required and must be specified")
-	}
 
 	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{"application/json"}
+	localVarHTTPContentTypes := []string{}
 
 	// set Content-Type header
 	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
@@ -724,15 +551,13 @@ func (a *CarAPIService) UpdateCarsExecute(r ApiUpdateCarsRequest) (*http.Respons
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"text/plain", "application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-	// body params
-	localVarPostBody = r.car
 	if r.ctx != nil {
 		// API Key Authentication
 		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {

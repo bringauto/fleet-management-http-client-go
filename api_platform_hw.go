@@ -3,7 +3,7 @@ BringAuto Fleet Management v2 API
 
 Specification for BringAuto fleet backend HTTP API
 
-API version: 3.4.3
+API version: 4.1.0
 Contact: fleet@bringauto.com
 */
 
@@ -202,7 +202,7 @@ func (r ApiDeleteHwRequest) Execute() (*http.Response, error) {
 DeleteHw Delete Platform HW with the given ID.
 
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param platformHwId ID of Platform HW to delete.
+ @param platformHwId The Platform HW ID.
  @return ApiDeleteHwRequest
 */
 func (a *PlatformHWAPIService) DeleteHw(ctx context.Context, platformHwId int32) ApiDeleteHwRequest {
@@ -369,7 +369,7 @@ func (r ApiGetHwRequest) Execute() (*PlatformHW, *http.Response, error) {
 GetHw Find Platform HW with the given ID.
 
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param platformHwId ID of the Platform HW to return.
+ @param platformHwId The Platform HW ID.
  @return ApiGetHwRequest
 */
 func (a *PlatformHWAPIService) GetHw(ctx context.Context, platformHwId int32) ApiGetHwRequest {

@@ -3,7 +3,7 @@ BringAuto Fleet Management v2 API
 
 Specification for BringAuto fleet backend HTTP API
 
-API version: 3.4.3
+API version: 4.1.0
 Contact: fleet@bringauto.com
 */
 
@@ -421,7 +421,7 @@ func (r ApiGetOrderStatesRequest) Execute() ([]OrderState, *http.Response, error
 GetOrderStates Find all Order States for a particular Order specified by its ID.
 
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param orderId ID of the Order for which to find the Order States.
+ @param orderId The order ID.
  @return ApiGetOrderStatesRequest
 */
 func (a *OrderStateAPIService) GetOrderStates(ctx context.Context, orderId int32) ApiGetOrderStatesRequest {

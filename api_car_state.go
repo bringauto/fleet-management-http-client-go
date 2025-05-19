@@ -3,7 +3,7 @@ BringAuto Fleet Management v2 API
 
 Specification for BringAuto fleet backend HTTP API
 
-API version: 3.4.3
+API version: 4.1.0
 Contact: fleet@bringauto.com
 */
 
@@ -389,7 +389,7 @@ func (r ApiGetCarStatesRequest) Execute() ([]CarState, *http.Response, error) {
 GetCarStates Find one or all Car States for a Car with given ID.
 
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param carId ID of the Car for which to find the Car States.
+ @param carId The car ID.
  @return ApiGetCarStatesRequest
 */
 func (a *CarStateAPIService) GetCarStates(ctx context.Context, carId int32) ApiGetCarStatesRequest {

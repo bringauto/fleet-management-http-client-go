@@ -1,21 +1,21 @@
-# \PlatformHWAPI
+# \TenantAPI
 
 All URIs are relative to */v2/management*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**CreateHws**](PlatformHWAPI.md#CreateHws) | **Post** /platformhw | Create new Platform HW objects.
-[**DeleteHw**](PlatformHWAPI.md#DeleteHw) | **Delete** /platformhw/{platformHwId} | Delete Platform HW with the given ID.
-[**GetHw**](PlatformHWAPI.md#GetHw) | **Get** /platformhw/{platformHwId} | Find Platform HW with the given ID.
-[**GetHws**](PlatformHWAPI.md#GetHws) | **Get** /platformhw | Find and return all existing Platform HW.
+[**CreateTenants**](TenantAPI.md#CreateTenants) | **Post** /tenant | Create new Tenants.
+[**DeleteTenant**](TenantAPI.md#DeleteTenant) | **Delete** /tenant/{tenantId} | Delete Tenant with the given ID.
+[**GetTenants**](TenantAPI.md#GetTenants) | **Get** /tenant | Find and return all existing Tenants.
+[**SetTenantCookie**](TenantAPI.md#SetTenantCookie) | **Head** /tenant/{tenantId} | Make the server send back a response with set-cookie header to set cookie equal to the name of the tenand with the tenantId.
 
 
 
-## CreateHws
+## CreateTenants
 
-> []PlatformHW CreateHws(ctx).PlatformHW(platformHW).Execute()
+> []Tenant CreateTenants(ctx).Tenant(tenant).Execute()
 
-Create new Platform HW objects.
+Create new Tenants.
 
 ### Example
 
@@ -30,17 +30,17 @@ import (
 )
 
 func main() {
-	platformHW := []openapiclient.PlatformHW{*openapiclient.NewPlatformHW("ABCD1234EF56")} // []PlatformHW | A list of Platform HW models in JSON format.
+	tenant := []openapiclient.Tenant{*openapiclient.NewTenant("Tenant 1")} // []Tenant | Tenants to be created.
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.PlatformHWAPI.CreateHws(context.Background()).PlatformHW(platformHW).Execute()
+	resp, r, err := apiClient.TenantAPI.CreateTenants(context.Background()).Tenant(tenant).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `PlatformHWAPI.CreateHws``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `TenantAPI.CreateTenants``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `CreateHws`: []PlatformHW
-	fmt.Fprintf(os.Stdout, "Response from `PlatformHWAPI.CreateHws`: %v\n", resp)
+	// response from `CreateTenants`: []Tenant
+	fmt.Fprintf(os.Stdout, "Response from `TenantAPI.CreateTenants`: %v\n", resp)
 }
 ```
 
@@ -50,16 +50,16 @@ func main() {
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiCreateHwsRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiCreateTenantsRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **platformHW** | [**[]PlatformHW**](PlatformHW.md) | A list of Platform HW models in JSON format. | 
+ **tenant** | [**[]Tenant**](Tenant.md) | Tenants to be created. | 
 
 ### Return type
 
-[**[]PlatformHW**](PlatformHW.md)
+[**[]Tenant**](Tenant.md)
 
 ### Authorization
 
@@ -75,11 +75,11 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
-## DeleteHw
+## DeleteTenant
 
-> DeleteHw(ctx, platformHwId).Execute()
+> DeleteTenant(ctx, tenantId).Execute()
 
-Delete Platform HW with the given ID.
+Delete Tenant with the given ID.
 
 ### Example
 
@@ -94,13 +94,13 @@ import (
 )
 
 func main() {
-	platformHwId := int32(56) // int32 | The Platform HW ID.
+	tenantId := int32(56) // int32 | Tenant ID
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	r, err := apiClient.PlatformHWAPI.DeleteHw(context.Background(), platformHwId).Execute()
+	r, err := apiClient.TenantAPI.DeleteTenant(context.Background(), tenantId).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `PlatformHWAPI.DeleteHw``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `TenantAPI.DeleteTenant``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
 }
@@ -112,11 +112,11 @@ func main() {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**platformHwId** | **int32** | The Platform HW ID. | 
+**tenantId** | **int32** | Tenant ID | 
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiDeleteHwRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiDeleteTenantRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
@@ -141,11 +141,11 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
-## GetHw
+## GetTenants
 
-> PlatformHW GetHw(ctx, platformHwId).Execute()
+> []Tenant GetTenants(ctx).Execute()
 
-Find Platform HW with the given ID.
+Find and return all existing Tenants.
 
 ### Example
 
@@ -160,40 +160,31 @@ import (
 )
 
 func main() {
-	platformHwId := int32(56) // int32 | The Platform HW ID.
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.PlatformHWAPI.GetHw(context.Background(), platformHwId).Execute()
+	resp, r, err := apiClient.TenantAPI.GetTenants(context.Background()).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `PlatformHWAPI.GetHw``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `TenantAPI.GetTenants``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `GetHw`: PlatformHW
-	fmt.Fprintf(os.Stdout, "Response from `PlatformHWAPI.GetHw`: %v\n", resp)
+	// response from `GetTenants`: []Tenant
+	fmt.Fprintf(os.Stdout, "Response from `TenantAPI.GetTenants`: %v\n", resp)
 }
 ```
 
 ### Path Parameters
 
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**platformHwId** | **int32** | The Platform HW ID. | 
+This endpoint does not need any parameter.
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiGetHwRequest struct via the builder pattern
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
+Other parameters are passed through a pointer to a apiGetTenantsRequest struct via the builder pattern
 
 
 ### Return type
 
-[**PlatformHW**](PlatformHW.md)
+[**[]Tenant**](Tenant.md)
 
 ### Authorization
 
@@ -209,11 +200,11 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
-## GetHws
+## SetTenantCookie
 
-> []PlatformHW GetHws(ctx).Execute()
+> SetTenantCookie(ctx, tenantId).Execute()
 
-Find and return all existing Platform HW.
+Make the server send back a response with set-cookie header to set cookie equal to the name of the tenand with the tenantId.
 
 ### Example
 
@@ -228,31 +219,38 @@ import (
 )
 
 func main() {
+	tenantId := int32(56) // int32 | Tenant ID
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.PlatformHWAPI.GetHws(context.Background()).Execute()
+	r, err := apiClient.TenantAPI.SetTenantCookie(context.Background(), tenantId).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `PlatformHWAPI.GetHws``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `TenantAPI.SetTenantCookie``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `GetHws`: []PlatformHW
-	fmt.Fprintf(os.Stdout, "Response from `PlatformHWAPI.GetHws`: %v\n", resp)
 }
 ```
 
 ### Path Parameters
 
-This endpoint does not need any parameter.
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**tenantId** | **int32** | Tenant ID | 
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiGetHwsRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiSetTenantCookieRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
 
 
 ### Return type
 
-[**[]PlatformHW**](PlatformHW.md)
+ (empty response body)
 
 ### Authorization
 

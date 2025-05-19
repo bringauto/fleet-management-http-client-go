@@ -95,8 +95,8 @@ import (
 )
 
 func main() {
-	carId := int32(1) // int32 | ID of the Car to which the Order is assigned.
-	orderId := int32(1) // int32 | ID of the Order to be returned.
+	carId := int32(56) // int32 | The car ID.
+	orderId := int32(56) // int32 | The order ID.
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
@@ -114,8 +114,8 @@ func main() {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**carId** | **int32** | ID of the Car to which the Order is assigned. | 
-**orderId** | **int32** | ID of the Order to be returned. | 
+**carId** | **int32** | The car ID. | 
+**orderId** | **int32** | The order ID. | 
 
 ### Other Parameters
 
@@ -164,7 +164,7 @@ import (
 )
 
 func main() {
-	carId := int32(1) // int32 | ID of the Car for which Orders shall be returned.
+	carId := int32(56) // int32 | The car ID.
 	since := int64(789) // int64 | A Unix timestamp in milliseconds. If specified, only objects created at the time or later will be returned. If unspecified, all objects are returned (since is set to 0 in that case). (optional)
 
 	configuration := openapiclient.NewConfiguration()
@@ -185,7 +185,7 @@ func main() {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**carId** | **int32** | ID of the Car for which Orders shall be returned. | 
+**carId** | **int32** | The car ID. | 
 
 ### Other Parameters
 
@@ -234,8 +234,8 @@ import (
 )
 
 func main() {
-	carId := int32(1) // int32 | ID of the Car to which the Order is assigned.
-	orderId := int32(1) // int32 | ID of the Order to be returned.
+	carId := int32(56) // int32 | The car ID.
+	orderId := int32(56) // int32 | The order ID.
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
@@ -255,8 +255,8 @@ func main() {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**carId** | **int32** | ID of the Car to which the Order is assigned. | 
-**orderId** | **int32** | ID of the Order to be returned. | 
+**carId** | **int32** | The car ID. | 
+**orderId** | **int32** | The order ID. | 
 
 ### Other Parameters
 
