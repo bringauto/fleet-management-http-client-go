@@ -6,6 +6,8 @@ Specification for BringAuto fleet backend HTTP API
 
 To regenerate the client run the `regen.sh` script.
 
+The script uses `--git-user-id` and `--git-repo-id` flags to ensure generated test files have the correct import path (`github.com/bringauto/fleet-management-http-client-go`). Without these flags, the generator uses placeholder values that break the tests.
+
 ### Requirements
 
 - Java (openjdk-21-jre works)

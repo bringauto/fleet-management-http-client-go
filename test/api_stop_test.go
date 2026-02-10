@@ -14,7 +14,7 @@ import (
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
 	"testing"
-	openapiclient "github.com/GIT_USER_ID/GIT_REPO_ID"
+	openapiclient "github.com/bringauto/fleet-management-http-client-go"
 )
 
 func Test_openapi_StopAPIService(t *testing.T) {
@@ -22,11 +22,11 @@ func Test_openapi_StopAPIService(t *testing.T) {
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
 
-	t.Run("Test StopAPIService CreateStop", func(t *testing.T) {
+	t.Run("Test StopAPIService CreateStops", func(t *testing.T) {
 
 		t.Skip("skip test")  // remove to run test
 
-		resp, httpRes, err := apiClient.StopAPI.CreateStop(context.Background()).Execute()
+		resp, httpRes, err := apiClient.StopAPI.CreateStops(context.Background()).Execute()
 
 		require.Nil(t, err)
 		require.NotNil(t, resp)
@@ -73,11 +73,11 @@ func Test_openapi_StopAPIService(t *testing.T) {
 
 	})
 
-	t.Run("Test StopAPIService UpdateStop", func(t *testing.T) {
+	t.Run("Test StopAPIService UpdateStops", func(t *testing.T) {
 
 		t.Skip("skip test")  // remove to run test
 
-		httpRes, err := apiClient.StopAPI.UpdateStop(context.Background()).Execute()
+		httpRes, err := apiClient.StopAPI.UpdateStops(context.Background()).Execute()
 
 		require.Nil(t, err)
 		assert.Equal(t, 200, httpRes.StatusCode)

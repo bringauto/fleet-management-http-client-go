@@ -14,7 +14,7 @@ import (
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
 	"testing"
-	openapiclient "github.com/GIT_USER_ID/GIT_REPO_ID"
+	openapiclient "github.com/bringauto/fleet-management-http-client-go"
 )
 
 func Test_openapi_PlatformHWAPIService(t *testing.T) {
@@ -22,11 +22,11 @@ func Test_openapi_PlatformHWAPIService(t *testing.T) {
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
 
-	t.Run("Test PlatformHWAPIService CreateHw", func(t *testing.T) {
+	t.Run("Test PlatformHWAPIService CreateHws", func(t *testing.T) {
 
 		t.Skip("skip test")  // remove to run test
 
-		resp, httpRes, err := apiClient.PlatformHWAPI.CreateHw(context.Background()).Execute()
+		resp, httpRes, err := apiClient.PlatformHWAPI.CreateHws(context.Background()).Execute()
 
 		require.Nil(t, err)
 		require.NotNil(t, resp)

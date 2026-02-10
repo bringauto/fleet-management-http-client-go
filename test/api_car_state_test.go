@@ -14,7 +14,7 @@ import (
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
 	"testing"
-	openapiclient "github.com/GIT_USER_ID/GIT_REPO_ID"
+	openapiclient "github.com/bringauto/fleet-management-http-client-go"
 )
 
 func Test_openapi_CarStateAPIService(t *testing.T) {
@@ -24,9 +24,9 @@ func Test_openapi_CarStateAPIService(t *testing.T) {
 
 	t.Run("Test CarStateAPIService AddCarState", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
-		httpRes, err := apiClient.CarStateAPI.AddCarState(context.Background()).Execute()
+		httpRes, err := apiClient.CarStateAPI.CreateCarStates(context.Background()).Execute()
 
 		require.Nil(t, err)
 		assert.Equal(t, 200, httpRes.StatusCode)
@@ -35,7 +35,7 @@ func Test_openapi_CarStateAPIService(t *testing.T) {
 
 	t.Run("Test CarStateAPIService GetAllCarStates", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		resp, httpRes, err := apiClient.CarStateAPI.GetAllCarStates(context.Background()).Execute()
 
@@ -47,7 +47,7 @@ func Test_openapi_CarStateAPIService(t *testing.T) {
 
 	t.Run("Test CarStateAPIService GetCarStates", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		var carId int32
 
