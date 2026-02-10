@@ -22,11 +22,11 @@ func Test_openapi_CarAPIService(t *testing.T) {
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
 
-	t.Run("Test CarAPIService CreateCar", func(t *testing.T) {
+	t.Run("Test CarAPIService CreateCars", func(t *testing.T) {
 
 		t.Skip("skip test")  // remove to run test
 
-		resp, httpRes, err := apiClient.CarAPI.CreateCar(context.Background()).Execute()
+		resp, httpRes, err := apiClient.CarAPI.CreateCars(context.Background()).Execute()
 
 		require.Nil(t, err)
 		require.NotNil(t, resp)
@@ -73,11 +73,11 @@ func Test_openapi_CarAPIService(t *testing.T) {
 
 	})
 
-	t.Run("Test CarAPIService UpdateCar", func(t *testing.T) {
+	t.Run("Test CarAPIService UpdateCars", func(t *testing.T) {
 
 		t.Skip("skip test")  // remove to run test
 
-		httpRes, err := apiClient.CarAPI.UpdateCar(context.Background()).Execute()
+		httpRes, err := apiClient.CarAPI.UpdateCars(context.Background()).Execute()
 
 		require.Nil(t, err)
 		assert.Equal(t, 200, httpRes.StatusCode)

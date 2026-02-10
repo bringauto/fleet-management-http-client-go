@@ -22,11 +22,11 @@ func Test_openapi_OrderAPIService(t *testing.T) {
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
 
-	t.Run("Test OrderAPIService CreateOrder", func(t *testing.T) {
+	t.Run("Test OrderAPIService CreateOrders", func(t *testing.T) {
 
 		t.Skip("skip test")  // remove to run test
 
-		resp, httpRes, err := apiClient.OrderAPI.CreateOrder(context.Background()).Execute()
+		resp, httpRes, err := apiClient.OrderAPI.CreateOrders(context.Background()).Execute()
 
 		require.Nil(t, err)
 		require.NotNil(t, resp)

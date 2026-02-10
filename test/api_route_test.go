@@ -22,11 +22,11 @@ func Test_openapi_RouteAPIService(t *testing.T) {
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
 
-	t.Run("Test RouteAPIService CreateRoute", func(t *testing.T) {
+	t.Run("Test RouteAPIService CreateRoutes", func(t *testing.T) {
 
 		t.Skip("skip test")  // remove to run test
 
-		resp, httpRes, err := apiClient.RouteAPI.CreateRoute(context.Background()).Execute()
+		resp, httpRes, err := apiClient.RouteAPI.CreateRoutes(context.Background()).Execute()
 
 		require.Nil(t, err)
 		require.NotNil(t, resp)
@@ -87,11 +87,11 @@ func Test_openapi_RouteAPIService(t *testing.T) {
 
 	})
 
-	t.Run("Test RouteAPIService RedefineRouteVisualization", func(t *testing.T) {
+	t.Run("Test RouteAPIService RedefineRouteVisualizations", func(t *testing.T) {
 
 		t.Skip("skip test")  // remove to run test
 
-		resp, httpRes, err := apiClient.RouteAPI.RedefineRouteVisualization(context.Background()).Execute()
+		resp, httpRes, err := apiClient.RouteAPI.RedefineRouteVisualizations(context.Background()).Execute()
 
 		require.Nil(t, err)
 		require.NotNil(t, resp)
@@ -99,11 +99,11 @@ func Test_openapi_RouteAPIService(t *testing.T) {
 
 	})
 
-	t.Run("Test RouteAPIService UpdateRoute", func(t *testing.T) {
+	t.Run("Test RouteAPIService UpdateRoutes", func(t *testing.T) {
 
 		t.Skip("skip test")  // remove to run test
 
-		httpRes, err := apiClient.RouteAPI.UpdateRoute(context.Background()).Execute()
+		httpRes, err := apiClient.RouteAPI.UpdateRoutes(context.Background()).Execute()
 
 		require.Nil(t, err)
 		assert.Equal(t, 200, httpRes.StatusCode)
