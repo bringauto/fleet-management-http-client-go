@@ -1,10 +1,10 @@
 module github.com/bringauto/fleet-management-http-client-go
 
-go 1.24.0
+go 1.26.0
 
 require (
-	golang.org/x/oauth2 v0.34.0
 	github.com/stretchr/testify v1.11.1
+	golang.org/x/oauth2 v0.35.0
 )
 
 require (
